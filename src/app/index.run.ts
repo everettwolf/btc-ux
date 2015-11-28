@@ -1,4 +1,11 @@
-/** @ngInject */
-export function runBlock($log: angular.ILogService) {
-  $log.debug('runBlock end');
+module btcService {
+  'use strict';
+
+  export class RunBlock {
+    /** @ngInject */
+    constructor($log:ng.ILogService) {
+      $log.debug('runBlock end');
+    }
+
+  }
 }

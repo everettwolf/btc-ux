@@ -1,29 +1,18 @@
 /// <reference path="../../.tmp/typings/tsd.d.ts" />
 
-import { config } from './index.config';
-import { routerConfig } from './index.route';
-import { runBlock } from './index.run';
-import { MainController } from './main/main.controller';
-import { GithubContributor } from '../app/components/githubContributor/githubContributor.service';
-import { WebDevTecService } from '../app/components/webDevTec/webDevTec.service';
-import { acmeNavbar } from '../app/components/navbar/navbar.directive';
-import { acmeMalarkey } from '../app/components/malarkey/malarkey.directive';
 
-declare var malarkey: any;
-declare var moment: moment.MomentStatic;
+/// <reference path="index.route.ts" />
 
-module btcUx {
+/// <reference path="index.config.ts" />
+/// <reference path="index.run.ts" />
+/// <reference path="main/main.controller.ts" />
+
+module btcService {
   'use strict';
 
-  angular.module('btcUx', ['ngSanitize', 'ngMessages', 'ngResource', 'ngRoute', 'ui.bootstrap', 'toastr'])
-    .constant('malarkey', malarkey)
-    .constant('moment', moment)
-    .config(config)
-    .config(routerConfig)
-    .run(runBlock)
-    .service('githubContributor', GithubContributor)
-    .service('webDevTec', WebDevTecService)
-    .controller('MainController', MainController)
-    .directive('acmeNavbar', acmeNavbar)
-    .directive('acmeMalarkey', acmeMalarkey);
+  angular.module('btcService', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ngRoute', 'ui.bootstrap'])
+      .config(Config)
+      .config(RouterConfig)
+      .run(RunBlock)
+      .controller('MainController', MainController);
 }
