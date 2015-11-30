@@ -371,7 +371,7 @@ body {
     position: relative;
     clear: both;
     background-color: #e4ce99;
-    /*min-height:1110px;*/
+
 }
 
 #main {
@@ -423,7 +423,7 @@ header {
 }
 
 #edge-top {
-    background: url(../img/edge-top-trans.png) repeat-x top left;
+    background: url(/assets/img/edge-top-trans.png) repeat-x top left;
     height: 10px;
     width: 100%;
     display: inline-block;
@@ -432,7 +432,7 @@ header {
 }
 
 #edge-bottom {
-    background: url(../img/edge-bottom-trans.png) repeat-x top left;
+    background: url(../images/edge-bottom-trans.png) repeat-x top left;
     height: 10px;
     width: 100%;
     display: inline-block;
@@ -613,7 +613,7 @@ footer {
     height: 18px;
     left: 0;
     display: inline-block;
-    background: url(../img/filmstrip-dot.png) repeat-x top left;
+    background: url(../images/filmstrip-dot.png) repeat-x top left;
 }
 
 .dot-top {
