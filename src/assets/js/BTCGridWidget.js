@@ -221,13 +221,16 @@
         };
 
         var buildCarousel = function (json) {
+            console.log("BTC building carousel", json);
             var i = 0;
             var carouselWidth = 0;
+            var playlistId = "";
             C = 0;
             $(".btc-vid-list").html('');
             $.each(json, function (key, val) {
                 carouselWidth += 154 * 2;
-                console.log("carouselWidth", carouselWidth);
+                console.log("BTC carouselWidth", carouselWidth);
+                playlistId = val.playlistId;
                 $("<div>", {
                     class: "btc-vid-item",
                     id: "btc-vid-item_" + i,
@@ -255,7 +258,7 @@
                 var idx = this.id.split("_")[1];
                 loadSlide(idx);
                 BTC.loadPlaylist({
-                    list: "PLLVtQiMiCJeG_tNuuHw_3ACvXohGh-XGv",
+                    list: playlistId,
                     listType: "playlist",
                     index: idx
                 })
