@@ -128,6 +128,7 @@
         };
 
         var redirectToBTCPage = function (url) {
+            console.log("BTC Refresh", attribs.refresh);
             if (attribs.refresh === 'true') {
                 var param = url === 'home' ? '' : '?PL=' + url;
                 var protocol = window.location.protocol + '//';
@@ -138,11 +139,9 @@
                 window.location.replace(url);
             } else {
                 if (url === 'home') {
-                    window.location.hash = "home"
                     loadGridTemplate();
                 } else {
                     PL = url;
-                    window.location.hash = PL
                     loadPlayerTemplate();
                 }
             }
