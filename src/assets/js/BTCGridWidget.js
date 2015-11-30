@@ -29,6 +29,12 @@
     script.type = 'text/javascript';
     document.getElementsByTagName("head")[0].appendChild(script);
 
+    //Load Modernizr
+    var script = document.createElement('SCRIPT');
+    script.src = attribs.env + '/assets/js/modernizr-history.js';
+    script.type = 'text/javascript';
+    document.getElementsByTagName("head")[0].appendChild(script);
+
     //load YT
     if (window.YT) window.YT = null;
     script = document.createElement("SCRIPT");
@@ -38,7 +44,7 @@
 
     var jqueryloadinitiated = new Date().getTime();
     var checkJQueryReady = function (callback) {
-        if (window.jQuery && window.jQuery.fn.jquery >= '2.1.4') {
+        if (window.jQuery && window.jQuery.fn.jquery >= '2.1.4' && window.Modernizr) {
             var codeloaded = new Date().getTime();
             var loaddelay = ((codeloaded - jqueryloadinitiated) / 1000).toFixed(3);
             console.log("BTC Log: Time to load jQuery: " + loaddelay);
@@ -121,7 +127,7 @@
             return '';
         };
 
-        var redirectToBTCPage = function (url, comic, talent) {
+        var redirectToBTCPage = function (url) {
             if (attribs.refresh === 'true') {
                 var param = url === 'home' ? '' : '?PL=' + url;
                 var protocol = window.location.protocol + '//';
@@ -132,9 +138,11 @@
                 window.location.replace(url);
             } else {
                 if (url === 'home') {
+                    window.location.hash = "home"
                     loadGridTemplate();
                 } else {
                     PL = url;
+                    window.location.hash = PL
                     loadPlayerTemplate();
                 }
             }
