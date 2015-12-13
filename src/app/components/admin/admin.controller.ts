@@ -4,7 +4,7 @@ module btcService {
     export class AdminController {
 
         /* @ngInject */
-        constructor($timeout:ng.ITimeoutService) {
+        constructor() {
 
             // do nothing
 

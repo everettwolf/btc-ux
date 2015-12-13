@@ -11,9 +11,14 @@ module btcService {
                         controllerAs: 'main'
                    })
                    .when('/sandbox', {
-                        templateUrl: 'app/main/sandbox.html',
-                        controller: 'MainController',
-                        controllerAs: 'main'
+                       templateUrl: 'app/components/sandbox/sandbox.html',
+                       controller: 'SandboxController',
+                       controllerAs: 'sandbox'
+                   })
+                   .when('/king', {
+                       templateUrl: 'app/components/king/kingfeatures.html',
+                       controller: 'KingController',
+                       controllerAs: 'king'
                    })
                    .otherwise({
                         redirectTo: '/'
