@@ -423,7 +423,7 @@ header {
 }
 
 #edge-top {
-    background: url(/assets/img/edge-top-trans.png) repeat-x top left;
+    background: url(../images/edge-top-trans.png) repeat-x top left;
     height: 10px;
     width: 100%;
     display: inline-block;

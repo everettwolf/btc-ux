@@ -12,6 +12,8 @@ src/app/components/**/*.js
 src/app/components/**/*.js.map
 src/app/main/*.js
 src/app/main/*.js.map
+src/app/*.js
+src/app/*.js.map
 
 typings/
 

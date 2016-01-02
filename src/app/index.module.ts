@@ -5,6 +5,7 @@
 /// <reference path="index.config.ts" />
 /// <reference path="index.run.ts" />
 /// <reference path="main/main.controller.ts" />
+/// <reference path="properties/properties-service.ts" />
 /// <reference path="components/king/king.controller.ts" />
 /// <reference path="components/sandbox/sandbox.controller.ts" />
 
@@ -15,6 +16,7 @@ module btcService {
         .config(Config)
         .config(RouterConfig)
         .run(RunBlock)
+        .service('PropertiesService', PropertiesService)
         .controller('MainController', MainController)
         .controller('KingController', KingController);
 }

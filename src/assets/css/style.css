@@ -165,7 +165,7 @@ body {
 #btc-edge-top {
     float: left;
     margin-top: -7px;
-    background: url("http://dev.beyondthecomics.com/assets/images/edge-top-trans.png") repeat-x top left;
+    background: url("../images/edge-top-trans.png") repeat-x top left;
     height: 10px;
     width: 100%;
 }
@@ -186,7 +186,7 @@ body {
     height: 10%;
     left: 0;
     display: inline-block;
-    background: url("http://dev.beyondthecomics.com/assets/images/filmstrip-dot.png") repeat-x top left;
+    background: url("../images/filmstrip-dot.png") repeat-x top left;
 }
 
 .dot-top {
@@ -472,7 +472,7 @@ body {
 
 #more-comics-button,
 #more-comics-button:hover {
-    background-image: url('http://dev.beyondthecomics.com/assets/images/btcMoreComicsBtnBg.png');
+    background-image: url('../images/btcMoreComicsBtnBg.png');
     background-repeat: no-repeat;
     display: block;
     background-position: center top;
@@ -531,7 +531,7 @@ body {
 }
 
 #btc-edge-bottom {
-    background: url("http://dev.beyondthecomics.com/assets/images/edge-bottom-trans.png") repeat-x bottom left;
+    background: url("../images/edge-bottom-trans.png") repeat-x bottom left;
     height: 10px;
     width: 100%;
     float: left;

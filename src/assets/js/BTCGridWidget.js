@@ -202,7 +202,7 @@
         };
 
         var loadGridTemplate = function () {
-            var gridTemplateUrl = attribs.ws + "/btc-svc/ws/getGridTemplate?callback=?";
+            var gridTemplateUrl = attribs.ws + "/btc-svc/ws/getTemplate?templateType=GRID&callback=?";
             $.getJSON(gridTemplateUrl, function (data) {
                 loadGridTemplateSuccess(data.json);
             })
@@ -356,7 +356,7 @@
         };
 
         var loadPlayerTemplate = function () {
-            var playerTemplateUrl = attribs.ws + "/btc-svc/ws/getPlayerTemplate?callback=?";
+            var playerTemplateUrl = attribs.ws + "/btc-svc/ws/getTemplate?templateType=PLAYER&callback=?";
             $.getJSON(playerTemplateUrl, function (data) {
                 loadPlayerTemplateSuccess(data.json);
             })

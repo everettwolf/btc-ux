@@ -3,7 +3,7 @@ module btcService {
 
   export class Config {
     /** @ngInject */
-    constructor($logProvider:ng.ILogProvider) {
+    constructor($logProvider: ng.ILogProvider) {
       // enable log
       $logProvider.debugEnabled(true);
     }
