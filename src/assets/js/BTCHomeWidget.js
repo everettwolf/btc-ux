@@ -16,6 +16,7 @@
      -- possible styles --
      right-rail: widget plays in the far right ad column
      comics-kingdom: widget plays in Comics Kingdom widget
+     carousel: whether or not to show an archive carousel [true|false]
      ---------------------
      ws: the location of the back-end webservice from which to retrieve data
      /*************************/
@@ -28,7 +29,8 @@
         grid: null,
         ads: null,
         style: null,
-        ws: null
+        ws: null,
+        carousel: null
     };
     var errors = new Array;
     for (var key in attribs) {
@@ -38,7 +40,7 @@
     if (errors.length > 0) {
         var divId = 'btc-home-widget';
         var html = 'The following attribute(s) for the BTC Widget is(are) missing or invalid:<p/><p/>' + errors.join(', ') +
-            '<p/><b>Please copy this and put it in a request for an updated widget string to embed, with the proper attributes.</b>' +
+            '<p/><b>Please copy this message and put it in a request for an updated widget string to embed, with the proper attributes.</b>' +
             '<p/>Thank You!  ;-)<br/>The BTC Team';
         var div = document.createElement('div');
         div.id = divId;
@@ -139,6 +141,7 @@
         };
         var buildCarousel = function (json) {
             console.log("BTC building carousel", json);
+            $('#btc-widget-open-bground').height(520);
             var i = 0;
             var carouselWidth = 0;
             C = 0;
@@ -220,7 +223,8 @@
                         controls: 1,
                         showinfo: 0,
                         modestbranding: 1,
-                        rel: 0
+                        rel: 0,
+                        wmode: 'transparent'
                     },
                     events: {
                         'onReady': onPlayerReady,
@@ -244,8 +248,11 @@
         var loadPlayerPropertiesSuccess = function (json) {
             console.log("BTC Log: Player properties", json);
             loadYTPlayer();
-            buildCarousel(json);
-            loadSlide(0);
+            console.log("BTC Log: Carousel", attribs.carousel);
+            if (attribs.carousel === "true") {
+                buildCarousel(json);
+                loadSlide(0);
+            }
         };
 
         var loadPlayerProperties = function () {

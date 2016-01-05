@@ -95,46 +95,53 @@ BTC Styles
 #btc-widget-open-bground {
     position: absolute;
     z-index: 3;
-    width: 580px;
-    height: 520px;
+    width: 600px;
+    height: 400px;
     text-align: center;
-    color: #FFFFFF;
+    color: #FF0000;
     display: none;
-    background-color: #ebdbb4;
-    background-image: url("../images/bottomBG3.jpg");
-    background-repeat: no-repeat;
+    background-color: #DEC888;
     top: 0;
     right: 0;
 }
 
-#btc-widget-open-divL {
+#btc-widget-open-edge-top {
     float: left;
-    width: 45px;
-    height: 385px;
-    z-index: 4;
+    position: relative;
+    margin-top: -7px;
+    background: url("../images/edge-top-trans.png") repeat-x top left;
+    height: 10px;
+    width: 100%;
+    z-index: -1;
 }
 
-#btc-widget-open-divC {
-    float: left;
-    width: 490px;
-    height: 385px;
-    z-index: 4;
+#btc-widget-open-logo {
+    position: absolute;
+    left: -70px;
+    top: -15px;
+    width: 420px;
+    height: 210px;
+    background: url("../images/rays_and_logo.png") no-repeat top left;
+    background-size: contain;
+    z-index: -1;
 }
 
-#btc-widget-open-divR {
-    float: left;
-    width: 45px;
-    height: 385px;
-    z-index: 4;
+#btc-widget-open-close-btn {
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
 }
 
 #btc-widget-open-slide {
     float: left;
     background-color: #fff;
-    margin-top: 57px;
+    margin-left: 55px;
+    margin-top: 40px;
     width: 490px;
     height: 315px;
-    z-index: 4;
 }
 
 #btc-widget-open-title {
@@ -143,10 +150,7 @@ BTC Styles
     margin-left: 10px;
     margin-top: 10px;
     color: #333;
-    /*font-family: Georgia, "Times New Roman", Times, serif !important;*/
     font-size: 20px;
-    z-index: 4;
-
     font-family: 'Permanent Marker', cursive;
     text-decoration: none;
 }
@@ -157,16 +161,7 @@ BTC Styles
     margin-top: 10px;
     max-width: 470px;
     height: 265px;
-}
-
-#btc-widget-open-close-btn {
-    float: right;
-    margin-top: 15px;
-    margin-right: 5px;
-    width: 12px;
-    height: 12px;
-    z-index: 4;
-    cursor: pointer;
+    z-index: 9999;
 }
 
 #contentElement {
@@ -182,7 +177,7 @@ BTC Styles
 .btc-vid-list-container {
     width: 96%;
     overflow: hidden;
-    margin-top: 0;
+    margin-top: -5px;
     margin-left: 3px;
     padding-bottom: 20px;
 }
