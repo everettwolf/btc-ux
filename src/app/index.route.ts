@@ -3,7 +3,7 @@ module btcService {
 
      export class RouterConfig {
           /** @ngInject */
-          constructor($routeProvider:ng.route.IRouteProvider) {
+          constructor($routeProvider: ng.route.IRouteProvider) {
                $routeProvider
                    .when('/', {
                         templateUrl: 'app/main/main.html',
@@ -15,8 +15,13 @@ module btcService {
                        controller: 'SandboxController',
                        controllerAs: 'sandbox'
                    })
-                   .when('/king', {
-                       templateUrl: 'app/components/king/kingfeatures.html',
+                   .when('/kingcalendar', {
+                       templateUrl: 'app/components/king/kingcalendar.html',
+                       controller: 'KingController',
+                       controllerAs: 'king'
+                   })
+                   .when('/kingcarousel', {
+                       templateUrl: 'app/components/king/kingcarousel.html',
                        controller: 'KingController',
                        controllerAs: 'king'
                    })

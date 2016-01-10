@@ -94,15 +94,14 @@ BTC Styles
 
 #btc-widget-open-bground {
     position: absolute;
+    top: 0;
+    right: 0;
     z-index: 3;
     width: 600px;
-    height: 400px;
-    text-align: center;
+    height: 360px;
     color: #FF0000;
     display: none;
     background-color: #DEC888;
-    top: 0;
-    right: 0;
 }
 
 #btc-widget-open-edge-top {
@@ -136,7 +135,7 @@ BTC Styles
 }
 
 #btc-widget-open-slide {
-    float: left;
+    position: relative;
     background-color: #fff;
     margin-left: 55px;
     margin-top: 40px;
@@ -144,40 +143,81 @@ BTC Styles
     height: 315px;
 }
 
+#btc-widget-open-player {
+    position: relative;
+    margin: 10px 10px 0 10px;
+    max-width: 470px;
+    height: 265px;
+    z-index: 1;
+}
+
 #btc-widget-open-title {
+    position: relative;
+    height: 22px;
     line-height: 22px;
-    float: left;
-    margin-left: 10px;
-    margin-top: 10px;
-    color: #333;
+    margin: 0 10px 0 10px;
     font-size: 20px;
     font-family: 'Permanent Marker', cursive;
     text-decoration: none;
 }
 
-#btc-widget-open-player {
+#btc-widget-open-title #btc-widget-open-title-comic {
     float: left;
-    margin-left: 8px;
-    margin-top: 10px;
-    max-width: 470px;
-    height: 265px;
-    z-index: 9999;
+    color: #333;
 }
 
-#contentElement {
-    margin-left: 0;
-    margin-top: 0;
-    width: 470px;
-    height: 265px;
-    overflow: hidden;
-    border-style: solid;
-    border-width: 2px;
+#btc-widget-open-title #btc-widget-open-title-talent {
+    float: left;
+    color: #ff6600;
+}
+
+#btc-archive {
+    position: relative;
+    display: none;
+    margin: 10px 0 0 10px;
+    color: #0066bb;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+#btc-cal-arrow-left {
+    cursor: pointer;
+}
+
+#btc-cal-date {
+    font-family: 'Permanent Marker', cursive;
+    text-decoration: none;
+    color: #888888;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+#btc-cal-arrow-right {
+    cursor: pointer;
+}
+
+#btc-calendar {
+    padding: 0 0 0 10px;
+    cursor: pointer;
+}
+
+#btc-calendar #btc-datepicker {
+    position: absolute;
+    font-family: "Trebuchet MS", "Helvetica", "Arial", "Verdana", "sans-serif";
+    font-size: 60%;
+    z-index: 3;
+}
+
+#btc-datepicker .ui-widget-header {
+    background: lightblue;
 }
 
 .btc-vid-list-container {
+    position: relative;
     width: 96%;
     overflow: hidden;
-    margin-top: -5px;
+    margin-top: 5px;
     margin-left: 3px;
     padding-bottom: 20px;
 }
