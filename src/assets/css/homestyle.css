@@ -132,6 +132,7 @@ BTC Styles
     width: 15px;
     height: 15px;
     cursor: pointer;
+    color: #b2a68c;
 }
 
 #btc-widget-open-slide {
@@ -181,8 +182,13 @@ BTC Styles
     padding: 10px;
 }
 
-#btc-cal-arrow-left {
+.btc-cal-arrow-active {
     cursor: pointer;
+}
+
+.btc-cal-arrow-inactive {
+    color: #add8e6;
+    cursor: none;
 }
 
 #btc-cal-date {
@@ -190,11 +196,6 @@ BTC Styles
     text-decoration: none;
     color: #888888;
     padding: 0 5px;
-    cursor: pointer;
-}
-
-#btc-cal-arrow-right {
-    cursor: pointer;
 }
 
 #btc-calendar {
@@ -306,4 +307,28 @@ BTC Styles
 .btc-arrow-right:hover {
     background: rgba(255, 255, 255, 0.50);
     color: #CC181E;
+}
+
+#btc-widget-open-social {
+    position: absolute;
+    top: 175px;
+    left: 550px;
+    padding: 0;
+}
+
+#btc-widget-open-social .fa-stack-1x {
+    color: white;
+}
+
+#btc-widget-open-facebook {
+    float: left;
+    color: #3b5998;
+    cursor: pointer;
+
+}
+
+#btc-widget-open-twitter {
+    float: left;
+    color: #00aced;
+    cursor: pointer;
 }

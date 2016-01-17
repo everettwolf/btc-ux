@@ -12,8 +12,8 @@
     }
 
     #btc-player-container {
-        max-width: 100px;
-        height: auto;
+        max-width: 300px;
+        height: 167px;
     }
 
     #comictitle {
@@ -41,7 +41,7 @@
 
     #btc-player-container {
         max-width: 300px;
-        height: auto;
+        height: 167px;
     }
 
     #comictitle {
@@ -81,8 +81,8 @@
     }
 
     #btc-player-container {
-        max-width: 620px;
-        height: auto;
+        width: 610px;
+        height: 340px;
     }
 
     #comictitle {

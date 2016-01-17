@@ -7,6 +7,7 @@
 /// <reference path="main/main.controller.ts" />
 /// <reference path="properties/properties-service.ts" />
 /// <reference path="components/king/king.controller.ts" />
+/// <reference path="components/social/social.controller.ts" />
 /// <reference path="components/sandbox/sandbox.controller.ts" />
 
 module btcService {
@@ -18,5 +19,6 @@ module btcService {
         .run(RunBlock)
         .service('PropertiesService', PropertiesService)
         .controller('MainController', MainController)
-        .controller('KingController', KingController);
+        .controller('KingController', KingController)
+        .controller('SocialController', SocialController);
 }

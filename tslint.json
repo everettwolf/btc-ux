@@ -34,7 +34,7 @@
       "trace"
     ],
     "no-construct": true,
-    "no-constructor-vars": true,
+    "no-constructor-vars": false,
     "no-debugger": true,
     "no-duplicate-key": true,
     "no-duplicate-variable": true,
@@ -66,23 +66,11 @@
       "propertySignature",
       "variableDeclarator"
     ],
-    "typedef-whitespace": [true,
-      ["callSignature", "noSpace"],
-      ["catchClause", "noSpace"],
-      ["indexSignature", "space"]
-    ],
     "use-strict": [
       true,
       "check-module",
       "check-function"
     ],
-    "variable-name": false,
-    "whitespace": [true,
-      "check-branch",
-      "check-decl",
-      "check-operator",
-      "check-separator",
-      "check-type"
-    ]
+    "variable-name": false
   }
 }

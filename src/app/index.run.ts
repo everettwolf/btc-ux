@@ -1,13 +1,14 @@
+///<reference path="../../.tmp/typings/angularjs/angular.d.ts"/>
 module btcService {
     'use strict';
 
     export class RunBlock {
         /** @ngInject */
-        constructor($rootScope, $templateCache) {
-            $rootScope.$on('$routeChangeStart', function (event, next, current) {
-                console.log("F current", current);
+        constructor($rootScope:ng.IRootScopeService, $templateCache:ng.ITemplateCacheService) {
+            $rootScope.$on('$routeChangeStart', function (event:any, next:any, current:any) {
+
                 if (typeof(current) !== 'undefined') {
-                    console.log("HKDJHFKDJFKDJFDKJDKFJDFKDJKDFJKJFD");
+
                     $templateCache.remove(current.templateUrl);
                 }
             });
