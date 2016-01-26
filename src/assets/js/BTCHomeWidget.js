@@ -51,14 +51,16 @@
     }
 
     //Load jQuery
-    (function (window, document) {
-        var loader = function () {
-            var script = document.createElement("script"), tag = document.getElementsByTagName("script")[0];
-            script.src = attribs.env + '/assets/js/jquery.min.js';
-            tag.parentNode.insertBefore(script, tag);
-        };
-        window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
-    })(window, document);
+    var script = document.createElement('SCRIPT');
+    script.src = attribs.env + '/assets/js/jquery.min.js';
+    script.type = 'text/javascript';
+    document.getElementsByTagName("head")[0].appendChild(script);
+
+    //Load jQuery-UI
+    var script = document.createElement('SCRIPT');
+    script.src = attribs.env + '/assets/js/jquery-ui.min.js';
+    script.type = 'text/javascript';
+    document.getElementsByTagName("head")[0].appendChild(script);
 
     //load YT
     if (window.YT) window.YT = null;
@@ -68,24 +70,29 @@
     document.getElementsByTagName("head")[0].appendChild(script);
 
     var jqueryloadinitiated = new Date().getTime();
+    var loadtries = 0;
     var checkJQueryReady = function (callback) {
-        if (window.jQuery && window.jQuery.fn.jquery >= '2.1.4') {
+        if (window.jQuery && window.jQuery.fn.jquery >= '2.1.4' && window.jQuery.ui) {
             var codeloaded = new Date().getTime();
             var loaddelay = ((codeloaded - jqueryloadinitiated) / 1000).toFixed(3);
             console.log("BTC Log: Time to load jQuery: " + loaddelay);
-
-            //Load JQuery UI
-            var script = document.createElement('SCRIPT');
-            script.src = attribs.env + '/assets/js/jquery-ui.min.js'
-            //script.src = '//code.jquery.com/ui/1.11.2/jquery-ui.mi  n.js'
-            script.type = 'text/javascript';
-            document.getElementsByTagName("head")[0].appendChild(script);
             callback(true);
         } else {
             window.setTimeout(function () {
-                console.log(window.jQuery.ui);
-                console.log("BTC LOADING");
-                checkJQueryReady(callback);
+                if (!(window.jQuery && window.jQuery.fn.jquery >= '2.1.4')) {
+                    console.log("BTC Log: LOADING JQUERY");
+                }
+                if (window.jQuery && window.jQuery.fn.jquery >= '2.1.4') {
+                    //jquery is loaded but jqueryUI is not
+                    console.log("BTC Log: JQUERY LOADED, BUT JQUERYUI IS NOT LOADING");
+                    loadtries++;
+                }
+                if (loadtries >= 30) {
+                    //tried loading jquery 30 times, let's skip it and load carousel instead.
+                    callback(true);
+                } else {
+                    checkJQueryReady(callback);
+                }
             }, 100);
         }
     };
@@ -104,10 +111,14 @@
     };
 
     // Start polling...
-    checkJQueryReady(function (jQuery) {
+    checkJQueryReady(function (ready) {
             console.log("BTC Log: jQuery loaded.  Running version " + $.fn.jquery);
 
+            var debug = window.location.hostname == 'localhost' || window.location.hostname == 'dev.beyondthecomics.com' ? true : false;
             var $btc = window.jQuery.noConflict();
+            var $btc_dp = window.jQuery.datepicker;
+
+            console.log("Datepicker", $btc_dp);
 
             //Facebook API
             (function (d, s, id) {
@@ -145,7 +156,7 @@
             content.parentNode.insertBefore(container_div, content);
 
             //Initialize global variables
-            var BTC, pl, src, C, datesWithVideos;
+            var BTC, pl, src, C, datesWithVideos, mobileEnabled;
             var thumb = attribs.env + "/assets/images/thumb.png";
             var xml = {"comic": "Joke of the Day", "talent": "Dana Carvey", "thumb": thumb};
 
@@ -160,12 +171,6 @@
                 });
             };
 
-            //Load Additional Javascript
-            var loadJS = function (src) {
-                var jsLink = $btc("<script type='text/javascript' src='" + src + "'>");
-                $btc("head").append(jsLink);
-            };
-
             loadCSS(attribs.env + '/assets/css/homestyle.css');
             loadCSS('//fonts.googleapis.com/css?family=Permanent+Marker');
             loadCSS('//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
@@ -175,8 +180,11 @@
              FUNCTIONS
              *****************/
             var logToConsole = function (msg, val) {
-                console.log("BTC Log: " + msg, val);
+                if (debug) console.log("BTC Log: " + msg, val);
             };
+
+            var isOSx = navigator.userAgent.match(/(iPhone|iPad)/i) ? true : false;
+            var mobileenabled = false;
 
             var CONSTS = {
                 CAROUSEL_HEIGHT: 500,
@@ -188,21 +196,36 @@
             var loadDatesWithVideos = function (mydate) {
                 var returngood = [true, "available"];
                 var returnbad = [false, "unavailable"];
-                $checkdate = $btc.datepicker.formatDate('dd MM yy', mydate);
+                $checkdate = $btc_dp.formatDate('dd MM yy', mydate);
                 if (mydate > new Date()) return returnbad;
                 for (var i = 0; i < datesWithVideos.length; i++) {
-                    if (datesWithVideos[i] == $checkdate) {
+                    if (datesWithVideos[i].date == $checkdate) {
                         return returngood
                     }
                 }
                 return returnbad
             };
+            var findVideoIndex = function (dateKey, myArray) {
+                for (var i = 0; i < myArray.length; i++) {
+                    if (myArray[i].date === dateKey) {
+                        return i;
+                    }
+                }
+                return -1;
+            };
+
             var loadDate = function (mydate) {
                 var date = new Date(mydate);
-                $btc("#btc-cal-date").html($btc.datepicker.formatDate('MM d, yy', date));
-                var idx = $btc.inArray(mydate, datesWithVideos);
+
+                $btc("#btc-cal-date").html($btc_dp.formatDate('MM d, yy', date));
+
+                var idx = findVideoIndex(mydate, datesWithVideos); //$btc.inArray(mydate, datesWithVideos.date);
                 logToConsole("idx", idx);
                 logToConsole("length", datesWithVideos.length);
+                $btc("#btc-widget-open-title-comic").html(datesWithVideos[idx].comic);
+                $btc("#btc-widget-open-title-with").html("with");
+                $btc("#btc-widget-open-title-talent").html(datesWithVideos[idx].talent);
+                $btc("#btc-widget-open-title-joke").html('"' + datesWithVideos[idx].joke + '"');
                 if (idx === 0) {
                     logToConsole("index is zero", idx);
                     $btc("#btc-cal-arrow-left").addClass("btc-cal-arrow-active").removeClass("btc-cal-arrow-inactive");
@@ -219,30 +242,47 @@
                     $btc("#btc-cal-arrow-right").addClass("btc-cal-arrow-active").removeClass("btc-cal-arrow-inactive");
                 }
                 $btc('#btc-datepicker .ui-datepicker-inline').hide();
-                BTC.loadPlaylist({
-                    list: attribs.pl,
-                    listType: "playlist",
-                    index: idx
-                });
+                loadOrCueVideo(datesWithVideos[idx].videoId);
             };
             var populateDatesWithVideos = function () {
                 var date;
                 var numDates = 1;
                 $btc.each(datesWithVideos, function (idx, val) {
                     if (!date) {
-                        date = new Date(val);
+                        date = new Date(val.date);
                         logToConsole("date", date);
-                        $btc("#btc-cal-date").html($btc.datepicker.formatDate('MM dd, yy', date));
+                        $btc("#btc-cal-date").html($btc_dp.formatDate('MM dd, yy', date));
                     }
                     if (numDates++ > 1) $btc("#btc-cal-arrow-left").addClass("btc-cal-arrow-active").removeClass("btc-cal-arrow-inactive");
                 });
             };
 
-            var switchDay = function (dir) {
-                var date = $btc.datepicker.formatDate('dd MM yy', new Date($btc("#btc-cal-date").html()));
+            var searchForDay = function (dateKey, myArray, direction) {
+                logToConsole("MYARRAY", myArray);
+                for (var i = 0; i < myArray.length; i++) {
+                    //logToConsole("compare", myArray[i].date + ", " + nameKey);
+                    if (myArray[i].date === dateKey) {
+                        logToConsole("newDate", dateKey[i].date);
+                        logToConsole("idx", i + direction);
+                        if (i + direction > myArray.length - 1) {
+                            return myArray[0].date;
+                        }
+                        if (i + direction < 0) {
+                            return myArray[myArray.length - 1].date;
+                        }
+                        return myArray[i + direction].date;
+                    }
+                }
+                return null;
+            };
 
-                var prev = datesWithVideos[($btc.inArray(date, datesWithVideos) + 1) % datesWithVideos.length];
-                var next = datesWithVideos[($btc.inArray(date, datesWithVideos) - 1 + datesWithVideos.length) % datesWithVideos.length];
+            var switchDay = function (dir) {
+                var date = $btc_dp.formatDate('dd MM yy', new Date($btc("#btc-cal-date").html()));
+
+                var prev = searchForDay(date, datesWithVideos, +1);// datesWithVideos[($btc.inArray(date, datesWithVideos) + 1) % datesWithVideos.length].date;
+                var next = searchForDay(date, datesWithVideos, -1);//datesWithVideos[($btc.inArray(date, datesWithVideos) - 1 + datesWithVideos.length) % datesWithVideos.length].date;
+                logToConsole("prev", prev);
+                logToConsole("next", next);
 
                 if (dir === "next") loadDate(next);
                 if (dir === "prev") loadDate(prev);
@@ -252,19 +292,32 @@
                 $btc.each(json, function (key, val) {
                     logToConsole("val.publishedAt", val.publishedAt);
                     var vid = val;
-                    datesWithVideos.push($btc.datepicker.formatDate('dd MM yy', new Date(val.publishedAt)));
+                    datesWithVideos.push({
+                        'date': $btc_dp.formatDate('dd MM yy', new Date(val.publishedAt)),
+                        'videoId': val.videoId,
+                        'comic': val.comic,
+                        'talent': val.talent,
+                        'joke': val.joke
+                    });
                 });
                 datesWithVideos.sort(function (x, y) {
-                    return new Date(y) - new Date(x);
+                    return new Date(y.date) - new Date(x.date);
                 });
                 logToConsole("datesWithVideos", datesWithVideos);
             };
             var showCalendar = function (json) {
+                logToConsole("showing calendar", typeof($btc_dp));
                 createDateObject(json);
                 populateDatesWithVideos();
 
                 $btc('#btc-widget-open-bground').height(CONSTS.CALENDAR_HEIGHT);
                 $btc('#btc-widget-open-slide').height(CONSTS.CALENDAR_SLIDE_HEIGHT);
+                $btc('#btc-widget-open-title-joke').show();
+                $btc("#btc-widget-open-title-comic").html(datesWithVideos[0].comic);
+                $btc("#btc-widget-open-title-with").html("with");
+                $btc("#btc-widget-open-title-talent").html(datesWithVideos[0].talent);
+                $btc("#btc-widget-open-title-joke").html('"' + datesWithVideos[0].joke + '"');
+
 
                 $btc('#btc-archive').css({"display": "inline-block"})
                 $btc('#btc-datepicker').datepicker({
@@ -297,11 +350,13 @@
             };
 
             var loadSlide = function (idx) {
-                var comic_info = $btc("#btc-vid-item_" + idx).data();
-                $btc(".comic").html(comic_info.comic);
-                $btc(".talent").html(comic_info.talent);
-                $btc(".btc-vid-item").css("background", "");
-                $btc("#btc-vid-item_" + idx).css("background", "#f0f9ff");
+                $btc("#btc-widget-open-title-comic").html($btc("#btc-vid-item_" + idx).attr('data-comic'));
+                $btc("#btc-widget-open-title-with").html("with");
+                $btc("#btc-widget-open-title-talent").html($btc("#btc-vid-item_" + idx).attr('data-talent'));
+                $btc(".btc-vid-item").css("opacity", "");
+                $btc(".btc-vid-overlay").css("display", "");
+                $btc("#btc-vid-item_" + idx).css("opacity", "0.25");
+                $btc("#btc-vid-overlay_" + idx).css("display", "inline-block");
             };
             var buildCarousel = function (json) {
                 logToConsole("building carousel", json);
@@ -310,24 +365,34 @@
                 var carouselWidth = 0;
                 C = 0;
                 $btc(".btc-vid-list").html('');
-                $btc.each(json, function (key, val) {
+                $btc.each($btc(json).toArray().reverse(), function (key, val) {
                     carouselWidth += 154 * 2;
+                    $btc("<div>", {
+                        class: "btc-vid-slide",
+                        id: "btc-vid-slide_" + i
+                    }).appendTo(".btc-vid-list");
                     $btc("<div>", {
                         class: "btc-vid-item",
                         id: "btc-vid-item_" + i,
-                        data: {comic: val.comic, talent: val.talent}
-                    }).appendTo(".btc-vid-list");
+                        'data-comic': val.comic,
+                        'data-talent': val.talent,
+                        'data-videoId': val.videoId
+                    }).appendTo("#btc-vid-slide_" + i);
                     $btc("<div>", {
                         class: "thumb",
                         id: "thumb_" + i
-                    }).appendTo("#btc-vid-item_" + i)
+                    }).appendTo("#btc-vid-item_" + i);
                     $btc("<img>", {
                         src: val.thumb
-                    }).appendTo("#thumb_" + i)
+                    }).appendTo("#thumb_" + i);
                     $btc("<div>", {
                         class: "joke",
                         text: val.joke
-                    }).appendTo("#btc-vid-item_" + i)
+                    }).appendTo("#btc-vid-item_" + i);
+                    $btc("<div>", {
+                        class: "btc-vid-overlay",
+                        id: "btc-vid-overlay_" + i
+                    }).append("Now<br/>Playing").appendTo("#btc-vid-slide_" + i);
                     i++;
                 });
 
@@ -340,11 +405,8 @@
                 $btc(".btc-vid-item").bind("click", function (event) {
                     var idx = this.id.split("_")[1];
                     loadSlide(idx);
-                    BTC.loadPlaylist({
-                        list: attribs.pl,
-                        listType: "playlist",
-                        index: idx
-                    });
+                    logToConsole("vid data", $btc(this).attr('data-videoId'));
+                    loadOrCueVideo($btc(this).attr('data-videoId'));
                 });
 
                 $btc(".btc-arrow-right").bind("click", function (event) {
@@ -369,28 +431,44 @@
                         $btc(".btc-arrow-left").css("display", "none");
                     }
                 });
-            };
 
+            };
+            var loadOrCueVideo = function (videoId) {
+                if (!isOSx) {
+                    BTC.loadVideoById(videoId);
+                } else {
+                    BTC.cueVideoById(videoId);
+                }
+            }
+
+            var videoPlayable = function () {
+                if ($btc('#btc-widget-open-bground').is(':visible') && !isOSx) {
+                    return true;
+                }
+                return false;
+            };
             var onPlayerReady = function (event) {
-                //event.target.playVideo();
+                logToConsole("open?", $btc('#btc-widget-open-bground').is(':visible'));
+                if (videoPlayable()) {
+                    event.target.playVideo();
+                }
+                logToConsole("player ready", event);
             };
 
             var onPlayerStateChange = function (event) {
                 logToConsole("event changed", event);
+                if (event.data == 1) mobileenabled = true;
             };
 
-            var loadYTPlayer = function () {
+            var loadYTPlayer = function (videoID) {
                 checkYTPlayerReady(function ($) {
                     BTC = new YT.Player('btc-widget-open-player', {
-                        playerVars: {
-                            listType: 'playlist',
-                            list: attribs.pl,
-                            controls: 1,
-                            showinfo: 0,
-                            modestbranding: 1,
-                            rel: 0,
-                            wmode: 'transparent'
-                        },
+                        videoId: videoID,
+                        controls: 1,
+                        showinfo: 0,
+                        modestbranding: 1,
+                        rel: 0,
+                        wmode: 'transparent',
                         events: {
                             'onReady': onPlayerReady,
                             'onStateChange': onPlayerStateChange
@@ -402,20 +480,11 @@
             var constructWidget = function () {
                 logToConsole("constructing video", xml);
 
-                var protocol = window.location.protocol + '//';
-                var hostname = window.location.hostname;
-                var pathname = window.location.pathname;
-                url = protocol + hostname + pathname;
-                logToConsole("url", url);
-                logToConsole("href", window.location.href);
-
                 $btc('#btc-widget-header').html("<div id='btc-widget-preview'><img id='btc-widget-thumb' src='" + xml.thumb + "'></div>");
                 $btc('#btc-widget-thumb').css('width', '240px').css('height', '129px');
                 $btc('#btc-widget-title-name').html(xml.comic);
                 $btc('#btc-widget-title-with').html('with');
                 $btc('#btc-widget-title-talent').html(xml.talent);
-                $btc('#btc-widget-open-title #btc-widget-open-title-comic').html(xml.comic);
-                $btc('#btc-widget-open-title #btc-widget-open-title-talent').html('&nbsp;with ' + xml.talent);
                 $btc("#btc-widget-open-facebook").bind("click", function () {
                     var url = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href);
                     var width = 550;
@@ -443,18 +512,27 @@
                         ',left=' + left;
                     window.open(url, 'twitter', opts);
                 });
+                $btc("#btc-widget-open-player").on("click", function () {
+                    alert("clicked on player");
+                });
+
             };
 
             var loadPlayerPropertiesSuccess = function (json) {
                 logToConsole("player properties", json);
-                loadYTPlayer();
+                logToConsole("initial video", json[0].videoId);
+                loadYTPlayer(json[json.length - 1].videoId);
                 logToConsole("archive type", attribs.archive);
                 switch (attribs.archive) {
                     case "carousel":
                         buildCarousel(json);
                         break;
                     case "calendar":
-                        showCalendar(json);
+                        if (typeof($btc_dp) === 'undefined') {
+                            buildCarousel(json);
+                        } else {
+                            showCalendar(json);
+                        }
                         break;
                     default:
                         break;
@@ -476,13 +554,16 @@
                 $btc('#btc_container').html(json);
 
                 $btc('#btc-widget-header, #btc-widget-playbtn, #btc-widget-title').click(function () {
-                    $btc('#btc-widget-open-bground').toggle("slow");
-                    BTC.playVideo();
+                    $btc('#btc-widget-open-bground').toggle("slow", function () {
+                        logToConsole("mobileEnabled", mobileEnabled);
+                        logToConsole("isOsx", isOSx)
+                        if (mobileEnabled == true || !isOSx) BTC.playVideo();
+                    });
                 });
 
                 $btc("#btc-widget-open-close-btn").click(function () {
                     $btc('#btc-widget-open-bground').toggle("slow");
-                    BTC.pauseVideo().seekTo(0);
+                    BTC.stopVideo();
                 });
 
                 /*** CSS Loaded and Configured, execute code ***/

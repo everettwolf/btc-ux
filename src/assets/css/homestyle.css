@@ -17,7 +17,7 @@ BTC Styles
     padding-bottom: 4px;
     width: 256px;
     height: 252px;
-    background-image: url("../images/widgetbg.png");;
+    background-image: url("../images/widgetbg.png");
 }
 
 #btc-widget-top-link {
@@ -89,7 +89,7 @@ BTC Styles
     background-repeat: no-repeat;
     cursor: pointer;
     /*opacity:0.8;
-    filter:alpha(opacity=80);*/
+     filter:alpha(opacity=80);*/
 }
 
 #btc-widget-open-bground {
@@ -167,19 +167,55 @@ BTC Styles
     color: #333;
 }
 
+#btc-widget-open-title #btc-widget-open-title-with {
+    float: left;
+    color: #ff6600;
+    margin: 0 5px 0 5px;
+}
+
 #btc-widget-open-title #btc-widget-open-title-talent {
     float: left;
     color: #ff6600;
 }
 
-#btc-archive {
+#btc-widget-open-bottom {
     position: relative;
+    display: flex;
+    height: 44px;
+    align-items: center;
+    margin: 10px 10px 0 10px;
+    text-align: center;
+}
+
+#btc-widget-open-bottom-left {
+    float: left;
+    width: 50%;
+}
+
+#btc-archive {
     display: none;
-    margin: 10px 0 0 10px;
     color: #0066bb;
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 10px;
+    width: auto;
+    height: auto;
+}
+
+#btc-widget-open-bottom-right {
+    float: left;
+    width: 50%;
+}
+
+#btc-widget-open-title-joke {
+    color: #333;
+    padding: 0;
+    display: none;
+    font-family: 'Permanent Marker', cursive;
+    text-decoration: none;
+    width: auto;
+    font-size: 18px;
+    line-height: 18px;
 }
 
 .btc-cal-arrow-active {
@@ -217,6 +253,7 @@ BTC Styles
 .btc-vid-list-container {
     position: relative;
     width: 96%;
+    height: 128px;
     overflow: hidden;
     margin-top: 5px;
     margin-left: 3px;
@@ -236,33 +273,50 @@ BTC Styles
     height: 128px;
     float: left;
     margin: 3px;
-    padding: 10px;
     background: #fff;
     font-family: 'Permanent Marker', cursive;
 }
 
-.thumb {
-    /*position: relative;*/
-    /*overflow: hidden;*/
-    height: 84px;
+.btc-vid-slide {
+
 }
 
-.thumb img {
+.btc-vid-overlay {
+    color: #333;
+    font-size: 18px;
+    line-height: 18px;
+    float: left;
+    margin: 45px -110px;
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+    display: none;
+}
+
+.btc-vid-item .thumb {
+    margin: 10px;
+    width: 128px;
+    height: 72px;
+}
+
+.btc-vid-item .thumb img {
     width: 100%;
     position: relative;
-    top: 0;
 }
 
 .btc-vid-item .joke {
-    color: black;
+    color: #333;
     font-size: 15px;
     line-height: 15px;
-    margin-top: -5px;
+    margin: -5px 10px 0px 10px;
 }
 
 .btc-vid-item:hover {
-    background: #eee;
+    background: #95865b;
     cursor: pointer;
+}
+
+.btc-vid-item:hover .joke {
+    color: white;
 }
 
 .btc-arrows {
@@ -324,7 +378,6 @@ BTC Styles
     float: left;
     color: #3b5998;
     cursor: pointer;
-
 }
 
 #btc-widget-open-twitter {
