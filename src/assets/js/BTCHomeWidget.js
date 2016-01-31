@@ -56,12 +56,6 @@
     script.type = 'text/javascript';
     document.getElementsByTagName("head")[0].appendChild(script);
 
-    //Load jQuery-UI
-    var script = document.createElement('SCRIPT');
-    script.src = attribs.env + '/assets/js/jquery-ui.min.js';
-    script.type = 'text/javascript';
-    document.getElementsByTagName("head")[0].appendChild(script);
-
     //load YT
     if (window.YT) window.YT = null;
     script = document.createElement("SCRIPT");
@@ -72,7 +66,7 @@
     var jqueryloadinitiated = new Date().getTime();
     var loadtries = 0;
     var checkJQueryReady = function (callback) {
-        if (window.jQuery && window.jQuery.fn.jquery >= '2.1.4' && window.jQuery.ui) {
+        if (window.jQuery && window.jQuery.fn.jquery >= '2.1.4') {
             var codeloaded = new Date().getTime();
             var loaddelay = ((codeloaded - jqueryloadinitiated) / 1000).toFixed(3);
             console.log("BTC Log: Time to load jQuery: " + loaddelay);
@@ -114,11 +108,9 @@
     checkJQueryReady(function (ready) {
             console.log("BTC Log: jQuery loaded.  Running version " + $.fn.jquery);
 
-            var debug = window.location.hostname == 'localhost' || window.location.hostname == 'dev.beyondthecomics.com' ? true : false;
+            var debug = true;// window.location.hostname == 'localhost' || window.location.hostname == 'dev.beyondthecomics.com' || window.location.hostname == 'run.plnkr.co' ? true : false;
             var $btc = window.jQuery.noConflict();
-            var $btc_dp = window.jQuery.datepicker;
-
-            console.log("Datepicker", $btc_dp);
+            var $btc_dp;// = window.jQuery.datepicker;
 
             //Facebook API
             (function (d, s, id) {
@@ -148,6 +140,20 @@
                 return t;
             }(document, "script", "twitter-wjs"));
 
+            //Google Analytics API
+            (function (i, s, o, g, r, a, m) {
+                i.GoogleAnalyticsObject = r;
+                i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments);
+                    }, i[r].l = 1 * new Date();
+                a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                a.async = 1;
+                a.src = g;
+                m.parentNode.insertBefore(a, m);
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-50041591-1', 'auto');
+
             //Bootstrap the initial div into the DOM
             var $d = document;
             var container_div = $d.createElement('div');
@@ -157,8 +163,6 @@
 
             //Initialize global variables
             var BTC, pl, src, C, datesWithVideos, mobileEnabled;
-            var thumb = attribs.env + "/assets/images/thumb.png";
-            var xml = {"comic": "Joke of the Day", "talent": "Dana Carvey", "thumb": thumb};
 
             //Load Stylesheets
             var loadCSS = function (href) {
@@ -171,6 +175,34 @@
                 });
             };
 
+            var jqueryloadinitiated = new Date().getTime();
+            var loadtries = 0;
+            var checkDatepickerReady = function (callback) {
+                if (window.jQuery.datepicker || $btc.datepicker) {
+                    var codeloaded = new Date().getTime();
+                    var loaddelay = ((codeloaded - jqueryloadinitiated) / 1000).toFixed(3);
+                    console.log("BTC Log: Time to load datepicker: " + loaddelay);
+                    callback(true);
+                } else {
+                    window.setTimeout(function () {
+                        loadtries++;
+                        if (loadtries >= 30) {
+                            callback(true);
+                        } else {
+                            checkDatepickerReady(callback);
+                        }
+                    }, 100);
+                }
+            };
+
+            //Load Additional Javascript
+            var loadJS = function (src) {
+                var jsLink = $btc("<script type='text/javascript' src='" + src + "'>");
+                $btc("head").append(jsLink);
+            };
+
+            loadJS(attribs.env + '/assets/js/jquery-ui.min.js');
+
             loadCSS(attribs.env + '/assets/css/homestyle.css');
             loadCSS('//fonts.googleapis.com/css?family=Permanent+Marker');
             loadCSS('//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
@@ -181,6 +213,27 @@
              *****************/
             var logToConsole = function (msg, val) {
                 if (debug) console.log("BTC Log: " + msg, val);
+            };
+            var formatDate = function (format, datetoformat) {
+                var tempDate = new Date(datetoformat);
+                var monthNames = [
+                    "January", "February", "March",
+                    "April", "May", "June",
+                    "July", "August", "September",
+                    "October", "November", "December"
+                ];
+                var datestring = tempDate.getDate().toString();
+                var paddeddate = datestring.length < 2 ? '0' + datestring : datestring;
+                var month = monthNames[tempDate.getMonth()];
+                var year = tempDate.getFullYear();
+                switch (format) {
+                    case 'dd MM yy':
+                        return paddeddate + ' ' + month + ' ' + year;
+                    case 'MM d, yy':
+                        return month + ' ' + datestring + ', ' + year;
+                    default:
+                        return datetoformat;
+                }
             };
 
             var isOSx = navigator.userAgent.match(/(iPhone|iPad)/i) ? true : false;
@@ -196,7 +249,7 @@
             var loadDatesWithVideos = function (mydate) {
                 var returngood = [true, "available"];
                 var returnbad = [false, "unavailable"];
-                $checkdate = $btc_dp.formatDate('dd MM yy', mydate);
+                $checkdate = formatDate('dd MM yy', mydate);
                 if (mydate > new Date()) return returnbad;
                 for (var i = 0; i < datesWithVideos.length; i++) {
                     if (datesWithVideos[i].date == $checkdate) {
@@ -217,7 +270,7 @@
             var loadDate = function (mydate) {
                 var date = new Date(mydate);
 
-                $btc("#btc-cal-date").html($btc_dp.formatDate('MM d, yy', date));
+                $btc("#btc-cal-date").html(formatDate('MM d, yy', date));
 
                 var idx = findVideoIndex(mydate, datesWithVideos); //$btc.inArray(mydate, datesWithVideos.date);
                 logToConsole("idx", idx);
@@ -251,7 +304,7 @@
                     if (!date) {
                         date = new Date(val.date);
                         logToConsole("date", date);
-                        $btc("#btc-cal-date").html($btc_dp.formatDate('MM dd, yy', date));
+                        $btc("#btc-cal-date").html(formatDate('MM d, yy', date));
                     }
                     if (numDates++ > 1) $btc("#btc-cal-arrow-left").addClass("btc-cal-arrow-active").removeClass("btc-cal-arrow-inactive");
                 });
@@ -259,10 +312,10 @@
 
             var searchForDay = function (dateKey, myArray, direction) {
                 logToConsole("MYARRAY", myArray);
+                logToConsole("DATEKEY", dateKey);
                 for (var i = 0; i < myArray.length; i++) {
-                    //logToConsole("compare", myArray[i].date + ", " + nameKey);
+                    logToConsole("compare", myArray[i].date + ", " + dateKey);
                     if (myArray[i].date === dateKey) {
-                        logToConsole("newDate", dateKey[i].date);
                         logToConsole("idx", i + direction);
                         if (i + direction > myArray.length - 1) {
                             return myArray[0].date;
@@ -277,7 +330,7 @@
             };
 
             var switchDay = function (dir) {
-                var date = $btc_dp.formatDate('dd MM yy', new Date($btc("#btc-cal-date").html()));
+                var date = formatDate('dd MM yy', $btc("#btc-cal-date").html());
 
                 var prev = searchForDay(date, datesWithVideos, +1);// datesWithVideos[($btc.inArray(date, datesWithVideos) + 1) % datesWithVideos.length].date;
                 var next = searchForDay(date, datesWithVideos, -1);//datesWithVideos[($btc.inArray(date, datesWithVideos) - 1 + datesWithVideos.length) % datesWithVideos.length].date;
@@ -293,11 +346,12 @@
                     logToConsole("val.publishedAt", val.publishedAt);
                     var vid = val;
                     datesWithVideos.push({
-                        'date': $btc_dp.formatDate('dd MM yy', new Date(val.publishedAt)),
+                        'date': formatDate('dd MM yy', val.publishedAt),
                         'videoId': val.videoId,
                         'comic': val.comic,
                         'talent': val.talent,
-                        'joke': val.joke
+                        'joke': val.joke,
+                        'thumb': val.thumb
                     });
                 });
                 datesWithVideos.sort(function (x, y) {
@@ -307,8 +361,8 @@
             };
             var showCalendar = function (json) {
                 logToConsole("showing calendar", typeof($btc_dp));
-                createDateObject(json);
                 populateDatesWithVideos();
+                logToConsole("FUCK", $btc(document).ready());
 
                 $btc('#btc-widget-open-bground').height(CONSTS.CALENDAR_HEIGHT);
                 $btc('#btc-widget-open-slide').height(CONSTS.CALENDAR_SLIDE_HEIGHT);
@@ -318,14 +372,24 @@
                 $btc("#btc-widget-open-title-talent").html(datesWithVideos[0].talent);
                 $btc("#btc-widget-open-title-joke").html('"' + datesWithVideos[0].joke + '"');
 
-
-                $btc('#btc-archive').css({"display": "inline-block"})
-                $btc('#btc-datepicker').datepicker({
-                    showOn: "both",
-                    dateFormat: 'dd MM yy',
-                    beforeShowDay: loadDatesWithVideos,
-                    onSelect: loadDate
-                });
+                $btc('#btc-archive').css({"display": "inline-block"});
+                if (typeof($btc('#btc-datepicker').datepicker) != 'undefined') {
+                    console.log("$btc is not undefined using")
+                    $btc('#btc-datepicker').datepicker({
+                        showOn: "both",
+                        dateFormat: 'dd MM yy',
+                        beforeShowDay: loadDatesWithVideos,
+                        onSelect: loadDate
+                    });
+                } else {
+                    console.log("$btc is undefined, not using")
+                    window.jQuery('#btc-datepicker').datepicker({
+                        showOn: "both",
+                        dateFormat: 'dd MM yy',
+                        beforeShowDay: loadDatesWithVideos,
+                        onSelect: loadDate
+                    });
+                }
                 dp = $btc('#btc-datepicker .ui-datepicker-inline');
                 dp.hide();
                 $btc('#btc-calendar').hover(function () {
@@ -365,7 +429,7 @@
                 var carouselWidth = 0;
                 C = 0;
                 $btc(".btc-vid-list").html('');
-                $btc.each($btc(json).toArray().reverse(), function (key, val) {
+                $btc.each($btc(json).toArray(), function (key, val) {
                     carouselWidth += 154 * 2;
                     $btc("<div>", {
                         class: "btc-vid-slide",
@@ -456,14 +520,17 @@
             };
 
             var onPlayerStateChange = function (event) {
-                logToConsole("event changed", event);
-                if (event.data == 1) mobileenabled = true;
+                logToConsole("event changed", event.target.getVideoData().title);
+                if (event.data == 1) {
+                    mobileenabled = true;
+                    ga('send', 'event', 'KF Widget', 'playstarted', event.target.getVideoData().title);
+                }
             };
 
-            var loadYTPlayer = function (videoID) {
+            var loadYTPlayer = function (video) {
                 checkYTPlayerReady(function ($) {
                     BTC = new YT.Player('btc-widget-open-player', {
-                        videoId: videoID,
+                        videoId: video.videoId,
                         controls: 1,
                         showinfo: 0,
                         modestbranding: 1,
@@ -475,16 +542,19 @@
                         }
                     });
                 });
+                ga('send', 'event', 'KF Widget', 'loaded', video.joke);
+
             };
 
-            var constructWidget = function () {
-                logToConsole("constructing video", xml);
+            var constructWidget = function (props) {
+                logToConsole("constructing video", props);
+                ga('send', 'event', 'KF Widget', 'built', window.location.href);
 
-                $btc('#btc-widget-header').html("<div id='btc-widget-preview'><img id='btc-widget-thumb' src='" + xml.thumb + "'></div>");
-                $btc('#btc-widget-thumb').css('width', '240px').css('height', '129px');
-                $btc('#btc-widget-title-name').html(xml.comic);
+
+                $btc('#btc-widget-header').html("<img id='btc-widget-thumb' src='" + props.thumb + "'>");
+                $btc('#btc-widget-title-name').html(props.comic);
                 $btc('#btc-widget-title-with').html('with');
-                $btc('#btc-widget-title-talent').html(xml.talent);
+                $btc('#btc-widget-title-talent').html(props.talent);
                 $btc("#btc-widget-open-facebook").bind("click", function () {
                     var url = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href);
                     var width = 550;
@@ -512,27 +582,37 @@
                         ',left=' + left;
                     window.open(url, 'twitter', opts);
                 });
-                $btc("#btc-widget-open-player").on("click", function () {
-                    alert("clicked on player");
-                });
 
             };
 
-            var loadPlayerPropertiesSuccess = function (json) {
+            var loadPlayerProperties = function (json) {
                 logToConsole("player properties", json);
-                logToConsole("initial video", json[0].videoId);
-                loadYTPlayer(json[json.length - 1].videoId);
+                createDateObject(json);
+                logToConsole("initial video", datesWithVideos[0].videoId);
+                constructWidget({
+                    "comic": datesWithVideos[0].comic,
+                    "talent": datesWithVideos[0].talent,
+                    "thumb": datesWithVideos[0].thumb
+                });
+                loadYTPlayer(datesWithVideos[0]);
                 logToConsole("archive type", attribs.archive);
+                ga('send', 'pageview', window.location.href);
                 switch (attribs.archive) {
                     case "carousel":
                         buildCarousel(json);
                         break;
                     case "calendar":
-                        if (typeof($btc_dp) === 'undefined') {
-                            buildCarousel(json);
-                        } else {
-                            showCalendar(json);
-                        }
+                        checkDatepickerReady(function (ready) {
+                            $btc_dp = $btc.datepicker || window.jQuery.datepicker;
+                            logToConsole("Native Date Picker", window.jQuery.datepicker);
+                            logToConsole("No Conflict Date Picker", $btc.datepicker);
+                            logToConsole("Initialized Date Picker", $btc_dp);
+                            if (typeof($btc_dp) === 'undefined') {
+                                buildCarousel(json);
+                            } else {
+                                showCalendar(json);
+                            }
+                        });
                         break;
                     default:
                         break;
@@ -540,48 +620,50 @@
 
             };
 
-            var loadPlayerProperties = function () {
+            var getPlayerProperties = function () {
                 var playerJsonUrl = attribs.ws + "/btc-svc/ws/getPlaylistProps/" + attribs.pl;
                 $btc.getJSON(playerJsonUrl, function (data) {
-                    loadPlayerPropertiesSuccess($btc.parseJSON(data.json));
+                    loadPlayerProperties($btc.parseJSON(data.json));
                 })
                     .fail(function (data) {
                         logToConsole("Error loading player properties", data);
                     });
             };
 
-            var loadTemplateSuccess = function (json) {
+            var loadTemplate = function (json) {
                 $btc('#btc_container').html(json);
 
                 $btc('#btc-widget-header, #btc-widget-playbtn, #btc-widget-title').click(function () {
+                    ga('send', 'event', 'KF Widget', 'opened', 'opened');
                     $btc('#btc-widget-open-bground').toggle("slow", function () {
                         logToConsole("mobileEnabled", mobileEnabled);
-                        logToConsole("isOsx", isOSx)
+                        logToConsole("isOsx", isOSx);
+                        $btc('#btc-widget-open-title-joke').show();
                         if (mobileEnabled == true || !isOSx) BTC.playVideo();
                     });
                 });
 
                 $btc("#btc-widget-open-close-btn").click(function () {
+                    ga('send', 'event', 'KF Widget', 'closed', 'closed');
                     $btc('#btc-widget-open-bground').toggle("slow");
                     BTC.stopVideo();
                 });
 
                 /*** CSS Loaded and Configured, execute code ***/
-                loadPlayerProperties();
-                constructWidget(xml);
+                getPlayerProperties();
             };
 
-            var loadTemplate = function () {
+            var getTemplate = function () {
                 var templateUrl = attribs.ws + "/btc-svc/ws/getTemplate?templateType=HOME&callback=?";
                 $btc.getJSON(templateUrl, function (data) {
-                    loadTemplateSuccess(data.json);
+                    loadTemplate(data.json);
                 })
                     .fail(function (data) {
                         logToConsole("Error loading template", data);
                     });
             };
 
-            loadTemplate();
+            getTemplate();
         }
     );
 

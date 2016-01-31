@@ -10,32 +10,24 @@ BTC Styles
 
 #btc-widget-bground {
     position: relative;
-    padding-top: 0;
     z-index: 9999;
     background-repeat: no-repeat;
-    background-position: bottom;
-    padding-bottom: 4px;
-    width: 256px;
+    background-position: left top;
+    width: 265px;
     height: 252px;
     background-image: url("../images/widgetbg.png");
-}
-
-#btc-widget-top-link {
-    border-style: solid;
-    border-width: 10px;
+    background-position: center;
 }
 
 #btc-widget-header {
     float: left;
-    margin-left: 10px;
-    margin-top: 35px;
-    background-color: #fff;
-    color: #000;
-    height: 140px;
-    width: 240px;
-    z-index: 2;
-    overflow: hidden;
+    width: 245px;
+    height: 129px;
+    margin: 35px 10px 10px 10px;
+    text-align: center;
     cursor: pointer;
+    background-color: #FFFFFF;
+    color: #FFFFFF;
 }
 
 #btc-widget-title {
@@ -74,8 +66,8 @@ BTC Styles
 }
 
 #btc-widget-thumb {
-    width: 240px;
-    height: 129px;
+    width: 239px;
+    height: 134px;
 }
 
 #btc-widget-playbtn {
@@ -97,10 +89,10 @@ BTC Styles
     top: 0;
     right: 0;
     z-index: 3;
-    width: 600px;
+    width: 576px;
     height: 360px;
     color: #FF0000;
-    display: none;
+    /*display: none;*/
     background-color: #DEC888;
 }
 
@@ -138,7 +130,7 @@ BTC Styles
 #btc-widget-open-slide {
     position: relative;
     background-color: #fff;
-    margin-left: 55px;
+    margin-left: 43px;
     margin-top: 40px;
     width: 490px;
     height: 315px;
@@ -366,7 +358,7 @@ BTC Styles
 #btc-widget-open-social {
     position: absolute;
     top: 175px;
-    left: 550px;
+    left: 536px;
     padding: 0;
 }
 
