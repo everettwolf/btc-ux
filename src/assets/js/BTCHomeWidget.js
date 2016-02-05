@@ -241,7 +241,7 @@
 
             var CONSTS = {
                 CAROUSEL_HEIGHT: 500,
-                CALENDAR_HEIGHT: 410,
+                CALENDAR_HEIGHT: 420,
                 CALENDAR_SLIDE_HEIGHT: 365
             };
 
@@ -268,6 +268,15 @@
             };
 
             var loadDate = function (mydate) {
+
+                if (typeof($btc('#btc-datepicker').datepicker) != 'undefined') {
+                    $btc('#btc-datepicker').datepicker().datepicker("setDate", new Date(mydate));
+                } else {
+                    window.jQuery('#btc-datepicker').datepicker().datepicker("setDate", new Date(mydate));
+                }
+
+                ga('send', 'event', 'KF Widget', 'dateswitched_location', window.location.href);
+
                 var date = new Date(mydate);
 
                 $btc("#btc-cal-date").html(formatDate('MM d, yy', date));
@@ -330,6 +339,7 @@
             };
 
             var switchDay = function (dir) {
+
                 var date = formatDate('dd MM yy', $btc("#btc-cal-date").html());
 
                 var prev = searchForDay(date, datesWithVideos, +1);// datesWithVideos[($btc.inArray(date, datesWithVideos) + 1) % datesWithVideos.length].date;
@@ -362,7 +372,6 @@
             var showCalendar = function (json) {
                 logToConsole("showing calendar", typeof($btc_dp));
                 populateDatesWithVideos();
-                logToConsole("FUCK", $btc(document).ready());
 
                 $btc('#btc-widget-open-bground').height(CONSTS.CALENDAR_HEIGHT);
                 $btc('#btc-widget-open-slide').height(CONSTS.CALENDAR_SLIDE_HEIGHT);
@@ -374,7 +383,6 @@
 
                 $btc('#btc-archive').css({"display": "inline-block"});
                 if (typeof($btc('#btc-datepicker').datepicker) != 'undefined') {
-                    console.log("$btc is not undefined using")
                     $btc('#btc-datepicker').datepicker({
                         showOn: "both",
                         dateFormat: 'dd MM yy',
@@ -382,7 +390,6 @@
                         onSelect: loadDate
                     });
                 } else {
-                    console.log("$btc is undefined, not using")
                     window.jQuery('#btc-datepicker').datepicker({
                         showOn: "both",
                         dateFormat: 'dd MM yy',
@@ -523,7 +530,8 @@
                 logToConsole("event changed", event.target.getVideoData().title);
                 if (event.data == 1) {
                     mobileenabled = true;
-                    ga('send', 'event', 'KF Widget', 'playstarted', event.target.getVideoData().title);
+                    ga('send', 'event', 'KF Widget', 'playstarted_title', event.target.getVideoData().title);
+                    ga('send', 'event', 'KF Widget', 'playstarted_location', window.location.href);
                 }
             };
 
@@ -542,21 +550,31 @@
                         }
                     });
                 });
-                ga('send', 'event', 'KF Widget', 'loaded', video.joke);
+                ga('send', 'event', 'KF Widget', 'loaded_title', video.joke);
+                ga('send', 'event', 'KF Widget', 'loaded_location', window.location.href);
 
             };
 
             var constructWidget = function (props) {
                 logToConsole("constructing video", props);
-                ga('send', 'event', 'KF Widget', 'built', window.location.href);
-
 
                 $btc('#btc-widget-header').html("<img id='btc-widget-thumb' src='" + props.thumb + "'>");
                 $btc('#btc-widget-title-name').html(props.comic);
-                $btc('#btc-widget-title-with').html('with');
-                $btc('#btc-widget-title-talent').html(props.talent);
+                $btc('#btc-widget-title-talent').html("with " + props.talent);
                 $btc("#btc-widget-open-facebook").bind("click", function () {
-                    var url = "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(window.location.href);
+                    ga('send', 'event', 'KF Widget', 'facebook_location', window.location.href);
+                    var url = 'https://www.facebook.com/dialog/feed';
+                    url += '?name=Joke of the Day with Dana Carvey ' + formatDate('MM d, yy', new Date());
+                    url += '&caption=Beyond the Comics & King Features';
+                    url += '&link=' + window.location.href;
+                    url += '&app_id=1669023343337111';
+                    url += '&redirect_uri=http://beyondthecomics.com/social.html';
+                    url += '&picture=http://beyondthecomics.com/assets/images/thumb.png';
+                    url += '&description=Watch as Dana Carvey reads the news as fake newscaster Tom Rathkite!';
+                    url += '&display=popup';
+                    logToConsole("facebook url", url);
+                    url = encodeURI(url);
+                    logToConsole("facebook url", url);
                     var width = 550;
                     var height = 250;
                     var left = window.screenX + window.outerWidth / 2 - width / 2;
@@ -565,9 +583,10 @@
                         ',height=' + height +
                         ',top=' + top +
                         ',left=' + left;
-                    window.open(url, 'facebookShareWindow', opts);
+                    window.open(url, 'fbshare', opts);
                 });
                 $btc("#btc-widget-open-twitter").bind("click", function () {
+                    ga('send', 'event', 'KF Widget', 'twitter_location', window.location.href);
                     var text = 'Joke of the Day with Dana Carvey - ' + $btc("#btc-cal-date").html();
                     var link = encodeURIComponent(window.location.href);
                     var url = 'http://twitter.com/share?url=' + link + '&text=' + text;
@@ -596,7 +615,7 @@
                 });
                 loadYTPlayer(datesWithVideos[0]);
                 logToConsole("archive type", attribs.archive);
-                ga('send', 'pageview', window.location.href);
+                ga('send', 'pageview_location', window.location.href);
                 switch (attribs.archive) {
                     case "carousel":
                         buildCarousel(json);
@@ -634,7 +653,7 @@
                 $btc('#btc_container').html(json);
 
                 $btc('#btc-widget-header, #btc-widget-playbtn, #btc-widget-title').click(function () {
-                    ga('send', 'event', 'KF Widget', 'opened', 'opened');
+                    ga('send', 'event', 'KF Widget', 'opened_location', window.location.href);
                     $btc('#btc-widget-open-bground').toggle("slow", function () {
                         logToConsole("mobileEnabled", mobileEnabled);
                         logToConsole("isOsx", isOSx);
@@ -644,7 +663,7 @@
                 });
 
                 $btc("#btc-widget-open-close-btn").click(function () {
-                    ga('send', 'event', 'KF Widget', 'closed', 'closed');
+                    ga('send', 'event', 'KF Widget', 'closed_location', window.location.href);
                     $btc('#btc-widget-open-bground').toggle("slow");
                     BTC.stopVideo();
                 });
