@@ -46,9 +46,24 @@
         div.id = divId;
         var widget = document.getElementById(SCRIPT_ID);
         widget.parentNode.insertBefore(div, widget);
-        document.getElementById(divId).innerHTML = html
+        document.getElementById(divId).innerHTML = html;
         return;
     }
+    var acl = [
+        "localhost",
+        "michaelgchan.com"
+    ];
+    if (acl.indexOf(window.location.hostname.replace('www.', '').toLowerCase()) === -1) {
+        var divId = "btc-home-widget";
+        var html = "<img src='" + attribs.env + "/assets/images/default.png'/>";
+        var div = document.createElement('div');
+        div.id = divId;
+        var widget = document.getElementById(SCRIPT_ID);
+        widget.parentNode.insertBefore(div, widget);
+        document.getElementById(divId).innerHTML = html;
+        return;
+    }
+
 
     //Load jQuery
     var script = document.createElement('SCRIPT');
@@ -205,6 +220,7 @@
 
             loadCSS(attribs.env + '/assets/css/homestyle.css');
             loadCSS('//fonts.googleapis.com/css?family=Permanent+Marker');
+            loadCSS('//fonts.googleapis.com/css?family=Oswald');
             loadCSS('//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
             loadCSS('//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css');
 
