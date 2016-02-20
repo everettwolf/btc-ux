@@ -11,7 +11,16 @@ var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 var _ = require('lodash');
 
+gulp.task('styles-reload', ['styles'], function () {
+  return buildStyles()
+      .pipe(browserSync.stream());
+});
+
 gulp.task('styles', function () {
+  return buildStyles();
+});
+
+var buildStyles = function () {
 
   var injectFiles = gulp.src([
     path.join(conf.paths.src, '/app/**/*.styl'),
@@ -38,6 +47,5 @@ gulp.task('styles', function () {
     .pipe($.stylus()).on('error', conf.errorHandler('Stylus'))
     .pipe($.autoprefixer()).on('error', conf.errorHandler('Autoprefixer'))
     .pipe($.sourcemaps.write())
-      .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')))
-      .pipe(browserSync.reload({stream: true}));
-});
+      .pipe(gulp.dest(path.join(conf.paths.tmp, '/serve/app/')));
+};

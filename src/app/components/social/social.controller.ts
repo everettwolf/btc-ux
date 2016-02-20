@@ -1,12 +1,8 @@
-module btcService {
-    'use strict';
+export class SocialController {
 
-    export class SocialController {
-        static $inject = []
+  static $inject = [];
 
-        constructor() {
-            // do Nothing
-        }
+  constructor() {
+  }
 
-    }
 }

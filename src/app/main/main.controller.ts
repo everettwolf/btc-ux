@@ -1,18 +1,13 @@
-module btcService {
-    'use strict';
+export class MainController {
 
-    export class MainController {
+  static $inject = [];
 
-        static $inject = ['PropertiesService']
+  frontEndUrl:string;
+  backEndUrl:string;
 
-        frontEndUrl:string;
-        backEndUrl:string;
+  /* @ngInject */
+  constructor() {
 
-        /* @ngInject */
-        constructor(private props:PropertiesService) {
-            this.frontEndUrl = props.getFrontEndUrl();
-            this.backEndUrl = props.getBackEndUrl();
-        }
+  }
 
-    }
 }

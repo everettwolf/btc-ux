@@ -38,7 +38,7 @@
     "no-debugger": true,
     "no-duplicate-key": true,
     "no-duplicate-variable": true,
-    "no-empty": true,
+    "no-empty": false,
     "no-eval": true,
     "no-string-literal": true,
     "no-switch-case-fall-through": true,
@@ -66,11 +66,30 @@
       "propertySignature",
       "variableDeclarator"
     ],
-    "use-strict": [
+    "typedef-whitespace": [
       true,
-      "check-module",
-      "check-function"
+      [
+        "callSignature",
+        "noSpace"
+      ],
+      [
+        "catchClause",
+        "noSpace"
+      ],
+      [
+        "indexSignature",
+        "space"
+      ]
     ],
-    "variable-name": false
+    "use-strict": false,
+    "variable-name": false,
+    "whitespace": [
+      false,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type"
+    ]
   }
 }

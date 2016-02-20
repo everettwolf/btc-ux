@@ -1,26 +1,9 @@
 {
   "generator-gulp-angular": {
-    "version": "0.12.1",
+    "version": "1.0.2",
     "props": {
-      "angularVersion": "~1.4.0",
-      "angularModules": [
-        {
-          "key": "animate",
-          "module": "ngAnimate"
-        },
-        {
-          "key": "cookies",
-          "module": "ngCookies"
-        },
-        {
-          "key": "touch",
-          "module": "ngTouch"
-        },
-        {
-          "key": "sanitize",
-          "module": "ngSanitize"
-        }
-      ],
+      "angularVersion": "~1.4.2",
+      "angularModules": [],
       "jQuery": {
         "key": "jquery2"
       },
@@ -50,7 +33,7 @@
         "srcExtension": "ts"
       },
       "htmlPreprocessor": {
-        "key": "none",
+        "key": "noHtmlPrepro",
         "extension": "html"
       },
       "foundationComponents": {

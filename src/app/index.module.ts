@@ -1,24 +1,20 @@
 /// <reference path="../../.tmp/typings/tsd.d.ts" />
 
+import { config } from './index.config';
+import { routerConfig } from './index.route';
+import { runBlock } from './index.run';
+import { MainController } from './main/main.controller';
+import { KingController } from './components/king/king.controller';
+import { SocialController } from './components/social/social.controller';
 
-/// <reference path="index.route.ts" />
-/// <reference path="index.config.ts" />
-/// <reference path="index.run.ts" />
-/// <reference path="main/main.controller.ts" />
-/// <reference path="properties/properties-service.ts" />
-/// <reference path="components/king/king.controller.ts" />
-/// <reference path="components/social/social.controller.ts" />
-/// <reference path="components/sandbox/sandbox.controller.ts" />
+module btc {
+  'use strict';
 
-module btcService {
-    'use strict';
-
-    angular.module('btcService', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngRoute', 'ui.bootstrap'])
-        .config(Config)
-        .config(RouterConfig)
-        .run(RunBlock)
-        .service('PropertiesService', PropertiesService)
-        .controller('MainController', MainController)
-        .controller('KingController', KingController)
-        .controller('SocialController', SocialController);
+  angular.module('btc', ['ngResource', 'ngRoute', 'ui.bootstrap', 'toastr'])
+      .config(config)
+      .config(routerConfig)
+      .run(runBlock)
+      .controller('MainController', MainController)
+      .controller('KingController', KingController)
+      .controller('SocialController', SocialController);
 }

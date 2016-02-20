@@ -1,11 +1,6 @@
-module btcService {
-  'use strict';
+/** @ngInject */
+export function config($logProvider:angular.ILogProvider, toastrConfig:any) {
+  // enable log
+  $logProvider.debugEnabled(true);
 
-  export class Config {
-    /** @ngInject */
-    constructor($logProvider: ng.ILogProvider) {
-      // enable log
-      $logProvider.debugEnabled(true);
-    }
-  }
 }

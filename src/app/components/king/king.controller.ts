@@ -1,12 +1,8 @@
-module btcService {
-    'use strict';
+export class KingController {
 
-    export class KingController {
-        foo;
+  /* @ngInject */
+  constructor() {
 
-        constructor() {
-            this.foo = '';
-        }
+  }
 
-    }
 }
