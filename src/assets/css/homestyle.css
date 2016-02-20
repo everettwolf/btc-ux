@@ -12,11 +12,10 @@ BTC Styles
     position: relative;
     z-index: 9999;
     background-repeat: no-repeat;
-    background-position: left top;
+    background-position: right top;
     width: 265px;
     height: 252px;
     background-image: url("../images/widgetbg.png");
-    background-position: center;
 }
 
 #btc-widget-header {
@@ -84,7 +83,7 @@ BTC Styles
 #btc-widget-open-bground {
     position: absolute;
     top: 0;
-    right: 0;
+    right: -1px;
     z-index: 3;
     width: 576px;
     height: 360px;
@@ -105,7 +104,7 @@ BTC Styles
 
 #btc-widget-open-logo {
     position: absolute;
-    left: -70px;
+    left: 0;
     top: -15px;
     width: 420px;
     height: 210px;
@@ -193,6 +192,11 @@ BTC Styles
     height: auto;
 }
 
+#btc-archive-container {
+    display: flex;
+    align-items: center;
+}
+
 #btc-widget-open-bottom-right {
     float: left;
     width: 50%;
@@ -210,8 +214,16 @@ BTC Styles
     line-height: 20px;
 }
 
+#btc-cal-arrow-left {
+    font-size: 21px;
+}
+
+#btc-cal-arrow-right {
+    font-size: 21px;
+}
 .btc-cal-arrow-active {
     cursor: pointer;
+    font-size: 5em;
 }
 
 .btc-cal-arrow-inactive {
@@ -221,10 +233,12 @@ BTC Styles
 
 #btc-cal-date {
     font-family: 'Oswald';
+    font-size: 14px;
     text-transform: uppercase;
     text-decoration: none;
     color: #393939;
     padding: 0 5px;
+
 }
 
 #btc-calendar {

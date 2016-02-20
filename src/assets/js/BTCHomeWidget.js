@@ -51,7 +51,20 @@
     }
     var acl = [
         "localhost",
-        "michaelgchan.com"
+        "michaelgchan.com",
+        "z_seattlepi.com",
+        "z_oregonlive.com",
+        "z_sfgate.com",
+        "z_interact.stltoday.com",
+        "z_jsonline.com",
+        "z_denverpost.com",
+        "z_chicagotribune.com",
+        "z_nj.com",
+        "z_newsok.com",
+        "z_philly.com",
+        "z_cleveland.com",
+        "z_mysanantonio.com",
+        "z_newsday.com"
     ];
     if (acl.indexOf(window.location.hostname.replace('www.', '').toLowerCase()) === -1) {
         var divId = "btc-home-widget";
@@ -166,8 +179,8 @@
                 a.async = 1;
                 a.src = g;
                 m.parentNode.insertBefore(a, m);
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-            ga('create', 'UA-50041591-1', 'auto');
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'btc_ga');
+            btc_ga('create', 'UA-50041591-1', 'auto');
 
             //Bootstrap the initial div into the DOM
             var $d = document;
@@ -291,7 +304,7 @@
                     window.jQuery('#btc-datepicker').datepicker().datepicker("setDate", new Date(mydate));
                 }
 
-                ga('send', 'event', 'KF Widget', 'dateswitched_location', window.location.href);
+                btc_ga('send', 'event', 'KF Widget', 'dateswitched_location', window.location.href);
 
                 var date = new Date(mydate);
 
@@ -546,8 +559,8 @@
                 logToConsole("event changed", event.target.getVideoData().title);
                 if (event.data == 1) {
                     mobileenabled = true;
-                    ga('send', 'event', 'KF Widget', 'playstarted_title', event.target.getVideoData().title);
-                    ga('send', 'event', 'KF Widget', 'playstarted_location', window.location.href);
+                    btc_ga('send', 'event', 'KF Widget', 'playstarted_title', event.target.getVideoData().title);
+                    btc_ga('send', 'event', 'KF Widget', 'playstarted_location', window.location.href);
                 }
             };
 
@@ -558,7 +571,7 @@
                         controls: 1,
                         showinfo: 0,
                         modestbranding: 1,
-                        rel: 0,
+                        playerVars: {rel: 0, playsinline: 1},
                         wmode: 'transparent',
                         events: {
                             'onReady': onPlayerReady,
@@ -566,8 +579,8 @@
                         }
                     });
                 });
-                ga('send', 'event', 'KF Widget', 'loaded_title', video.joke);
-                ga('send', 'event', 'KF Widget', 'loaded_location', window.location.href);
+                btc_ga('send', 'event', 'KF Widget', 'loaded_title', video.joke);
+                btc_ga('send', 'event', 'KF Widget', 'loaded_location', window.location.href);
 
             };
 
@@ -578,7 +591,7 @@
                 $btc('#btc-widget-title-name').html(props.comic);
                 $btc('#btc-widget-title-talent').html("with " + props.talent);
                 $btc("#btc-widget-open-facebook").bind("click", function () {
-                    ga('send', 'event', 'KF Widget', 'facebook_location', window.location.href);
+                    btc_ga('send', 'event', 'KF Widget', 'facebook_location', window.location.href);
                     var url = 'https://www.facebook.com/dialog/feed';
                     url += '?name=Joke of the Day with Dana Carvey ' + formatDate('MM d, yy', new Date());
                     url += '&caption=Beyond the Comics & King Features';
@@ -602,7 +615,7 @@
                     window.open(url, 'fbshare', opts);
                 });
                 $btc("#btc-widget-open-twitter").bind("click", function () {
-                    ga('send', 'event', 'KF Widget', 'twitter_location', window.location.href);
+                    btc_ga('send', 'event', 'KF Widget', 'twitter_location', window.location.href);
                     var text = 'Joke of the Day with Dana Carvey - ' + $btc("#btc-cal-date").html();
                     var link = encodeURIComponent(window.location.href);
                     var url = 'http://twitter.com/share?url=' + link + '&text=' + text;
@@ -631,7 +644,7 @@
                 });
                 loadYTPlayer(datesWithVideos[0]);
                 logToConsole("archive type", attribs.archive);
-                ga('send', 'pageview_location', window.location.href);
+                btc_ga('send', 'pageview_location', window.location.href);
                 switch (attribs.archive) {
                     case "carousel":
                         buildCarousel(json);
@@ -669,7 +682,7 @@
                 $btc('#btc_container').html(json);
 
                 $btc('#btc-widget-header, #btc-widget-playbtn, #btc-widget-title').click(function () {
-                    ga('send', 'event', 'KF Widget', 'opened_location', window.location.href);
+                    btc_ga('send', 'event', 'KF Widget', 'opened_location', window.location.href);
                     $btc('#btc-widget-open-bground').toggle("slow", function () {
                         logToConsole("mobileEnabled", mobileEnabled);
                         logToConsole("isOsx", isOSx);
@@ -679,7 +692,7 @@
                 });
 
                 $btc("#btc-widget-open-close-btn").click(function () {
-                    ga('send', 'event', 'KF Widget', 'closed_location', window.location.href);
+                    btc_ga('send', 'event', 'KF Widget', 'closed_location', window.location.href);
                     $btc('#btc-widget-open-bground').toggle("slow");
                     BTC.stopVideo();
                 });
