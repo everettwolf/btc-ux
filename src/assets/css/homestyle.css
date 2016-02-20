@@ -21,12 +21,17 @@ BTC Styles
 #btc-widget-header {
     float: left;
     width: 239px;
-    height: 129px;
+    height: 134px;
     margin: 52px 13px 0 13px;
     text-align: center;
     cursor: pointer;
     background-color: #FFFFFF;
     color: #FFFFFF;
+}
+
+#btc-widget-header img {
+    width: 238px;
+    height: 132px;
 }
 
 #btc-widget-title {
@@ -37,7 +42,7 @@ BTC Styles
     font-weight: 100;
     cursor: pointer;
     width: 239px;
-    margin: 0 13px 0 13px;
+    margin: 10px 13px 0 13px;
 }
 
 #btc-widget-title-name {
@@ -46,7 +51,7 @@ BTC Styles
     font-size: 20px;
     line-height: 20px;
     color: #350B5D;
-    margin: 15px 0 1px 0;
+    margin: 0 0 1px 0;
 }
 
 #btc-widget-title-talent {
@@ -221,6 +226,7 @@ BTC Styles
 #btc-cal-arrow-right {
     font-size: 21px;
 }
+
 .btc-cal-arrow-active {
     cursor: pointer;
     font-size: 5em;
