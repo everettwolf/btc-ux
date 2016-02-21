@@ -50,23 +50,32 @@
         return;
     }
     var acl = [
-        "localhost",
-        "michaelgchan.com",
-        "z_seattlepi.com",
-        "z_oregonlive.com",
-        "z_sfgate.com",
-        "z_interact.stltoday.com",
-        "z_jsonline.com",
-        "z_denverpost.com",
-        "z_chicagotribune.com",
-        "z_nj.com",
-        "z_newsok.com",
-        "z_philly.com",
-        "z_cleveland.com",
-        "z_mysanantonio.com",
-        "z_newsday.com"
+        {site: "localhost", responsive: true},
+        {site: "michaelgchan.com", responsive: false}
+        //"z_seattlepi.com",
+        //"z_oregonlive.com",
+        //"z_sfgate.com",
+        //"z_interact.stltoday.com",
+        //"z_jsonline.com",
+        //"z_denverpost.com",
+        //"z_chicagotribune.com",
+        //"z_nj.com",
+        //"z_newsok.com",
+        //"z_philly.com",
+        //"z_cleveland.com",
+        //"z_mysanantonio.com",
+        //"z_newsday.com"
     ];
-    if (acl.indexOf(window.location.hostname.replace('www.', '').toLowerCase()) === -1) {
+    attribs.valid = false;
+    attribs.responsive = false;
+    for (var i = 0; i < acl.length; i++) {
+        if (acl[i].site === (window.location.hostname.replace('www.', '').toLowerCase())) {
+            attribs.valid = true;
+            attribs.responsive = acl[i].responsive;
+            break;
+        }
+    }
+    if (!attribs.valid) {
         var divId = "btc-home-widget";
         var html = "<img src='" + attribs.env + "/assets/images/default.png'/>";
         var div = document.createElement('div');
@@ -76,8 +85,6 @@
         document.getElementById(divId).innerHTML = html;
         return;
     }
-
-
     //Load jQuery
     var script = document.createElement('SCRIPT');
     script.src = attribs.env + '/assets/js/jquery.min.js';
@@ -230,8 +237,11 @@
             };
 
             loadJS(attribs.env + '/assets/js/jquery-ui.min.js');
-
-            loadCSS(attribs.env + '/assets/css/homestyle.css');
+            if (attribs.responsive) {
+                loadCSS(attribs.env + '/assets/css/homestyleresp.css');
+            } else {
+                loadCSS(attribs.env + '/assets/css/homestyle.css');
+            }
             loadCSS('//fonts.googleapis.com/css?family=Permanent+Marker');
             loadCSS('//fonts.googleapis.com/css?family=Oswald');
             loadCSS('//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
@@ -251,9 +261,15 @@
                     "July", "August", "September",
                     "October", "November", "December"
                 ];
+                var monthNamesResponsive = [
+                    "Jan", "Feb", "Mar",
+                    "Apr", "May", "Jun",
+                    "Jul", "Aug", "Sep",
+                    "Oct", "Nov", "Dec"
+                ];
                 var datestring = tempDate.getDate().toString();
                 var paddeddate = datestring.length < 2 ? '0' + datestring : datestring;
-                var month = monthNames[tempDate.getMonth()];
+                var month = attribs.responsive ? monthNamesResponsive[tempDate.getMonth()] : monthNames[tempDate.getMonth()];
                 var year = tempDate.getFullYear();
                 switch (format) {
                     case 'dd MM yy':
@@ -411,17 +427,18 @@
                 $btc("#btc-widget-open-title-joke").html('"' + datesWithVideos[0].joke + '"');
 
                 $btc('#btc-archive').css({"display": "inline-block"});
+                var dateFormat = attribs.responsive ? 'dd M yy' : 'dd MM yy';
                 if (typeof($btc('#btc-datepicker').datepicker) != 'undefined') {
                     $btc('#btc-datepicker').datepicker({
                         showOn: "both",
-                        dateFormat: 'dd MM yy',
+                        dateFormat: dateFormat,
                         beforeShowDay: loadDatesWithVideos,
                         onSelect: loadDate
                     });
                 } else {
                     window.jQuery('#btc-datepicker').datepicker({
                         showOn: "both",
-                        dateFormat: 'dd MM yy',
+                        dateFormat: dateFormat,
                         beforeShowDay: loadDatesWithVideos,
                         onSelect: loadDate
                     });
@@ -571,7 +588,7 @@
                         controls: 1,
                         showinfo: 0,
                         modestbranding: 1,
-                        playerVars: {rel: 0, playsinline: 1},
+                        playerVars: {rel: 0, showinfo: 0, playsinline: 1},
                         wmode: 'transparent',
                         events: {
                             'onReady': onPlayerReady,

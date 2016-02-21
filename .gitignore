@@ -6,7 +6,7 @@ bower_components/
 dist/
 src/assets/videos/
 test.mp4
-assets/
+assets/js/*
 public/
 src/app/components/**/*.js
 src/app/components/**/*.js.map
