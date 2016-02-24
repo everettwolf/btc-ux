@@ -51,14 +51,14 @@
     }
     var acl = [
         {site: "localhost", responsive: true},
-        {site: "michaelgchan.com", responsive: false}
-        //"z_seattlepi.com",
+        {site: "michaelgchan.com", responsive: false},
+        {site: "z_seattlepi.com", responsive: false},
         //"z_oregonlive.com",
-        //"z_sfgate.com",
+        {site: "z_sfgate.com", responsive: false},
         //"z_interact.stltoday.com",
         //"z_jsonline.com",
         //"z_denverpost.com",
-        //"z_chicagotribune.com",
+        {site: "z_chicagotribune.com", responsive: true}
         //"z_nj.com",
         //"z_newsok.com",
         //"z_philly.com",
@@ -559,7 +559,7 @@
             }
 
             var videoPlayable = function () {
-                if ($btc('#btc-widget-open-bground').is(':visible') && !isOSx) {
+                if ($btc('#btc-widget-open-bground').is(':visible') && !isOSx && !attribs.responsive) {
                     return true;
                 }
                 return false;
