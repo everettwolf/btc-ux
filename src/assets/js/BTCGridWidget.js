@@ -164,8 +164,6 @@
                     "<div class='voice'>" + talent + "</div>" +
                     "</div>";
                 $("#vid-item" + i).html(slide);
-                $("#btc-gridad").html("Grid Ad");
-
                 var vid = "#vid-item" + i;
 
                 $('#btc-content').on('click', vid, function () {
@@ -193,6 +191,7 @@
         var loadGridTemplateSuccess = function (json) {
             $('#btc_container').html(json);
             $('#pageblurb').html("New! Cartoon Shorts");
+            $('#btc-gridad').html(gridad);
             applyStyles();
             loadGridProperties();
         };

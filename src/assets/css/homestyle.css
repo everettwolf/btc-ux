@@ -2,6 +2,37 @@
 BTC Styles
 **********/
 
+/* latin */
+@font-face {
+    font-family: 'Permanent Marker';
+    src: url('../fonts/PermanentMarker-webfont.eot');
+    src: url('../fonts/PermanentMarker-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/PermanentMarker-webfont.woff') format('woff'),
+    url('../fonts/PermanentMarker-webfont.ttf') format('truetype'),
+    url('../fonts/PermanentMarker-webfont.svg#permanent_markerregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/* latin-ext */
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Oswald Regular'), local('Oswald-Regular'), url(http://fonts.gstatic.com/s/oswald/v10/Qw6_9HvXRQGg5mMbFR3Phn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* latin */
+@font-face {
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Oswald Regular'), local('Oswald-Regular'), url(http://fonts.gstatic.com/s/oswald/v10/_P8jt3Y65hJ9c4AzRE0V1OvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
 #btc-container {
     float: left;
     padding-top: 0;
@@ -20,16 +51,25 @@ BTC Styles
 
 #btc-widget-header {
     float: left;
+    margin: 10px 0 0 10px;
+    font-family: 'Oswald';
+    font-size: 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+#btc-widget-display {
+    float: left;
     width: 239px;
     height: 134px;
-    margin: 52px 13px 0 13px;
+    margin: 15px 13px 0 13px;
     text-align: center;
     cursor: pointer;
     background-color: #FFFFFF;
     color: #FFFFFF;
 }
 
-#btc-widget-header img {
+#btc-widget-display img {
     width: 238px;
     height: 132px;
 }
@@ -95,6 +135,10 @@ BTC Styles
     color: #FF0000;
     display: none;
     background-color: #E0E0E0;
+}
+
+#btc-widget-open-header {
+    display: none;
 }
 
 #btc-widget-open-edge-top {

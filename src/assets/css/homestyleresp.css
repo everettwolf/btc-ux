@@ -16,12 +16,15 @@ BTC Styles for Responsive Sites
     width: 265px;
     height: 252px;
 }
-
 #btc-widget-header {
     display: none;
 }
 
-#btc-widget-header img {
+#btc-widget-display {
+    display: none;
+}
+
+#btc-widget-display img {
     display: none;
 }
 
@@ -55,11 +58,19 @@ BTC Styles for Responsive Sites
     left: 0;
     width: 265px;
     height: 252px;
-    background-image: url("//beyondthecomics.com/assets/images/widgetbg.png");
+    background-image: url("../images/widgetbg.png");
     background-repeat: no-repeat;
     background-position: right top;
 }
 
+#btc-widget-open-header {
+    float: left;
+    margin: 10px 0 0 10px;
+    font-family: 'Oswald';
+    font-size: 16px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
 #btc-widget-open-edge-top {
     display: none;
 }
@@ -78,7 +89,7 @@ BTC Styles for Responsive Sites
 
 #btc-widget-open-player {
     float: left;
-    margin: 50px 0 0 0;
+    margin: 13px 0 0 0;
     max-width: 265px;
     height: 150px;
     z-index: 1;
@@ -86,28 +97,28 @@ BTC Styles for Responsive Sites
 
 #btc-widget-open-title {
     position: absolute;
-    margin: 7px 0 0 110px;
+    margin: 165px 0 0 5px;
     font-size: 12px;
     line-height: 14px;
     font-family: 'Permanent Marker', cursive;
     text-transform: uppercase;
     text-decoration: none;
-    text-align: center;
+    text-align: left;
 }
 
 #btc-widget-open-title #btc-widget-open-title-comic {
     float: left;
-    width: 100%;
     color: #350B5D;;
 }
 
 #btc-widget-open-title #btc-widget-open-title-with {
-    display: none;
+    float: left;
+    color: #888888;
+    margin: 0 5px 0 5px;
 }
 
 #btc-widget-open-title #btc-widget-open-title-talent {
     float: left;
-    width: 100%;
     color: #888888;
 }
 
@@ -330,10 +341,10 @@ BTC Styles for Responsive Sites
 
 #btc-widget-open-social {
     position: absolute;
-    top: 175px;
-    left: 536px;
+    top: 8px;
+    right: 0;
     padding: 0;
-    display: none;
+    font-size: 10px;
 }
 
 #btc-widget-open-social .fa-stack-1x {

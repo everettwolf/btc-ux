@@ -50,7 +50,7 @@
         return;
     }
     var acl = [
-        {site: "localhost", responsive: false},
+        {site: "localhost", responsive: true},
         {site: "michaelgchan.com", responsive: false},
         {site: "z_seattlepi.com", responsive: false},
         //"z_oregonlive.com",
@@ -250,7 +250,8 @@
                 var CONSTS = {
                     CAROUSEL_HEIGHT: 500,
                     CALENDAR_HEIGHT: 420,
-                    CALENDAR_SLIDE_HEIGHT: 365
+                    CALENDAR_SLIDE_HEIGHT: 365,
+                    COMIC_HEADLINE: "NEW! COMIC VIDEOS"
                 };
 
 
@@ -567,7 +568,7 @@
                 var constructWidget = function (props) {
                     logToConsole("constructing video", props);
 
-                    $btc('#btc-widget-header').html("<img id='btc-widget-thumb' src='" + props.thumb + "'>");
+                    $btc('#btc-widget-display').html("<img id='btc-widget-thumb' src='" + props.thumb + "'>");
                     $btc('#btc-widget-title-name').html(props.comic);
                     $btc('#btc-widget-title-talent').html("with " + props.talent);
                     $btc("#btc-widget-open-facebook").bind("click", function () {
@@ -658,6 +659,8 @@
 
                 var loadTemplate = function (json) {
                     $btc('#btc_container').html(json);
+                    $btc('#btc-widget-header').html(CONSTS.COMIC_HEADLINE);
+                    $btc('#btc-widget-open-header').html(CONSTS.COMIC_HEADLINE);
 
                     $btc('#btc-widget-header, #btc-widget-playbtn, #btc-widget-title').click(function () {
                         btc_ga('send', 'event', 'KF Widget', 'opened_location', window.location.href);
