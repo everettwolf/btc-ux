@@ -3,35 +3,35 @@ BTC Styles
 **********/
 
 /* latin */
-@font-face {
-    font-family: 'Permanent Marker';
-    src: url('../fonts/PermanentMarker-webfont.eot');
-    src: url('../fonts/PermanentMarker-webfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/PermanentMarker-webfont.woff') format('woff'),
-    url('../fonts/PermanentMarker-webfont.ttf') format('truetype'),
-    url('../fonts/PermanentMarker-webfont.svg#permanent_markerregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
+/*@font-face {*/
+/*font-family: 'Permanent Marker';*/
+/*src: url('../fonts/PermanentMarker-webfont.eot');*/
+/*src: url('../fonts/PermanentMarker-webfont.eot?#iefix') format('embedded-opentype'),*/
+/*url('../fonts/PermanentMarker-webfont.woff') format('woff'),*/
+/*url('../fonts/PermanentMarker-webfont.ttf') format('truetype'),*/
+/*url('../fonts/PermanentMarker-webfont.svg#permanent_markerregular') format('svg');*/
+/*font-weight: normal;*/
+/*font-style: normal;*/
 
-}
+/*}*/
 
-/* latin-ext */
-@font-face {
-    font-family: 'Oswald';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Oswald Regular'), local('Oswald-Regular'), url(http://fonts.gstatic.com/s/oswald/v10/Qw6_9HvXRQGg5mMbFR3Phn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
-}
+/*/!* latin-ext *!/*/
+/*@font-face {*/
+/*font-family: 'Oswald';*/
+/*font-style: normal;*/
+/*font-weight: 400;*/
+/*src: local('Oswald Regular'), local('Oswald-Regular'), url(http://fonts.gstatic.com/s/oswald/v10/Qw6_9HvXRQGg5mMbFR3Phn-_kf6ByYO6CLYdB4HQE-Y.woff2) format('woff2');*/
+/*unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;*/
+/*}*/
 
-/* latin */
-@font-face {
-    font-family: 'Oswald';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Oswald Regular'), local('Oswald-Regular'), url(http://fonts.gstatic.com/s/oswald/v10/_P8jt3Y65hJ9c4AzRE0V1OvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
-}
+/*/!* latin *!/*/
+/*@font-face {*/
+/*font-family: 'Oswald';*/
+/*font-style: normal;*/
+/*font-weight: 400;*/
+/*src: local('Oswald Regular'), local('Oswald-Regular'), url(http://fonts.gstatic.com/s/oswald/v10/_P8jt3Y65hJ9c4AzRE0V1OvvDin1pK8aKteLpeZ5c0A.woff2) format('woff2');*/
+/*unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;*/
+/*}*/
 
 #btc-container {
     float: left;
@@ -41,7 +41,6 @@ BTC Styles
 
 #btc-widget-bground {
     position: relative;
-    z-index: 9999;
     background-repeat: no-repeat;
     background-position: right top;
     width: 265px;

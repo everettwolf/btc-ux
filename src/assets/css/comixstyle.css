@@ -1,0 +1,191 @@
+.btc-box {
+    max-width: 510px;
+    min-width: 265px;
+    background: #6c9a8f;
+}
+
+#btc-container {
+    position: relative;
+    border: 20px solid transparent;
+    padding: 10px 10px;
+    -moz-border-image: url("http://beyondthecomics.com/assets/images/frame.png") 20 20 stretch;
+    -webkit-border-image: url("http://beyondthecomics.com/assets/images/frame.png") 20 20 stretch;
+    -o-border-image: url("http://beyondthecomics.com/assets/images/frame.png") 20 20 stretch;
+    border-image: url("http://beyondthecomics.com/assets/images/frame.png") 20 20 stretch;
+    background-color: white;
+}
+
+#btc-widget {
+    position: relative;
+}
+
+#btc-title {
+    position: relative;
+    margin: 0 0 5px 0;
+    font-family: 'Permanent Marker', cursive;
+    text-transform: uppercase;
+}
+
+#btc-title #btc-comic {
+    display: inline;
+    color: #350B5D;
+}
+
+#btc-title #btc-talent {
+    display: inline;
+    color: #888888;
+}
+
+#btc-player {
+    width: 510px;
+    height: 287px;
+}
+
+#btc-player-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+}
+
+#btc-player-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#btc-comic-info {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#btc-comic-info #btc-date {
+    float: left;
+    margin: 5px;
+    color: #350B5D;
+    font-family: 'Oswald';
+}
+
+#btc-comic-info #btc-joke {
+    float: right;
+    margin: 5px;
+    color: #ff6600;
+    font-family: 'Permanent Marker', cursive;
+}
+
+.btc-vid-list-container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+
+.btc-vid-list {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 3990px;
+}
+
+.btc-vid-item {
+    float: left;
+    display: block;
+    width: 128px;
+    height: 72px;
+    margin-right: 5px;
+    background: #fff;
+}
+
+.btc-vid-item img {
+    width: 100%;
+    height: 100%;
+}
+
+.btc-vid-item:hover {
+    cursor: pointer;
+}
+
+.btc-vid-overlay {
+    float: left;
+    color: black;
+    font-size: 12px;
+    margin: 18px -95px;
+    font-family: 'Permanent Marker', cursive;
+    text-transform: uppercase;
+    text-align: center;
+    display: none;
+    cursor: pointer;
+}
+
+.btc-arrows {
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+.btc-arrow-left {
+    position: absolute;
+    top: -73px;
+    left: 0;
+    color: white;
+    background: rgba(96, 96, 96, 0.5);
+    z-index: 99;
+    cursor: pointer;
+    line-height: 72px;
+    height: 72px;
+    width: 18px;
+    display: none;
+}
+
+.btc-arrow-right {
+    position: absolute;
+    top: -72px;
+    right: 0;
+    color: white;
+    background: rgba(96, 96, 96, 0.5);
+    z-index: 99;
+    cursor: pointer;
+    line-height: 72px;
+    height: 72px;
+    width: 18px;
+    text-align: right;
+    display: none;
+}
+
+.btc-arrow-left:hover {
+    background: rgba(255, 255, 255, 0.50);
+    color: black;
+}
+
+.btc-arrow-right:hover {
+    background: rgba(255, 255, 255, 0.50);
+    color: black;
+}
+
+#btc-copyright {
+    position: absolute;
+    font-family: 'Architects Daughter';
+    font-size: 10px;
+    top: -15px;
+    right: 0; /* same as height */
+    height: 0;
+    padding: 0 1em;
+    transform: rotate(-90deg);
+    transform-origin: 100% 0;
+    line-height: 15px; /* same as height, for vertical centering */
+}
+
+#btc-signature {
+    position: absolute;
+    bottom: -16px;
+    left: -10px;
+    font-family: 'Homemade Apple';
+    font-size: 10px;
+    line-height: 10px;
+}
+
+#btc-archive {
+    font-family: Arial;
+    font-size: 10px;
+}

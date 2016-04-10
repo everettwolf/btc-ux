@@ -50,15 +50,16 @@
         return;
     }
     var acl = [
-        {site: "localhost", responsive: true},
+        {site: "localhost", responsive: false},
         {site: "michaelgchan.com", responsive: false},
+        {site: "kingfeatures.com", responsive: false},
         {site: "z_seattlepi.com", responsive: false},
         //"z_oregonlive.com",
-        {site: "sfgate.com", responsive: false},
+        {site: "z_sfgate.com", responsive: false},
         //"z_interact.stltoday.com",
         //"z_jsonline.com",
         //"z_denverpost.com",
-        {site: "z_chicagotribune.com", responsive: true}
+        {site: "chicagotribune.com", responsive: true}
         //"z_nj.com",
         //"z_newsok.com",
         //"z_philly.com",
@@ -66,7 +67,7 @@
         //"z_mysanantonio.com",
         //"z_newsday.com"
     ];
-    attribs.valid = false;
+    attribs.valid = true;
     attribs.responsive = false;
     for (var i = 0; i < acl.length; i++) {
         if (acl[i].site === (window.location.hostname.replace('www.', '').toLowerCase())) {
@@ -134,7 +135,6 @@
             attribs.env + '/assets/js/jquery.min.js',
             attribs.env + '/assets/js/jquery-ui.min.js',
             attribs.env + '/assets/js/youtube.js',
-            attribs.env + '/assets/css/fonts.css',
             styles,
             '//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css',
             '//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css', function () {
@@ -206,6 +206,8 @@
                         href: href
                     });
                 };
+                loadCSS('//fonts.googleapis.com/css?family=Permanent+Marker');
+                loadCSS('//fonts.googleapis.com/css?family=Oswald');
 
                 var jqueryloadinitiated = new Date().getTime();
                 var loadtries = 0;
