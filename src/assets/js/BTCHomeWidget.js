@@ -50,7 +50,7 @@
         return;
     }
     var acl = [
-        {site: "localhost", responsive: false},
+        {site: "localhost", responsive: true},
         {site: "michaelgchan.com", responsive: false},
         {site: "kingfeatures.com", responsive: false},
         {site: "z_seattlepi.com", responsive: false},
@@ -59,7 +59,9 @@
         //"z_interact.stltoday.com",
         //"z_jsonline.com",
         //"z_denverpost.com",
-        {site: "chicagotribune.com", responsive: true}
+        {site: "chicagotribune.com", responsive: true},
+        {site: "m.seattlepi.com", responsive: true},
+        {site: "comics.azcentral.com", responsive: true}
         //"z_nj.com",
         //"z_newsok.com",
         //"z_philly.com",
@@ -573,7 +575,7 @@
                     $btc('#btc-widget-display').html("<img id='btc-widget-thumb' src='" + props.thumb + "'>");
                     $btc('#btc-widget-title-name').html(props.comic);
                     $btc('#btc-widget-title-talent').html("with " + props.talent);
-                    $btc("#btc-widget-open-facebook").bind("click", function () {
+                    $btc(".btc-widget-facebook").bind("click", function () {
                         btc_ga('send', 'event', 'KF Widget', 'facebook_location', window.location.href);
                         var url = 'https://www.facebook.com/dialog/feed';
                         url += '?name=Joke of the Day with Dana Carvey ' + formatDate('MM d, yy', new Date());
@@ -597,7 +599,7 @@
                             ',left=' + left;
                         window.open(url, 'fbshare', opts);
                     });
-                    $btc("#btc-widget-open-twitter").bind("click", function () {
+                    $btc(".btc-widget-twitter").bind("click", function () {
                         btc_ga('send', 'event', 'KF Widget', 'twitter_location', window.location.href);
                         var text = 'Joke of the Day with Dana Carvey - ' + $btc("#btc-cal-date").html();
                         var link = encodeURIComponent(window.location.href);
