@@ -10,7 +10,7 @@ BTC Styles for Responsive Sites
 
 #btc-widget-bground {
     position: relative;
-    z-index: 9999;
+    z-index: auto;
     background-repeat: no-repeat;
     background-position: right top;
     width: 265px;
@@ -351,13 +351,13 @@ BTC Styles for Responsive Sites
     color: white;
 }
 
-#btc-widget-open-facebook {
+.btc-widget-facebook {
     float: left;
     color: #3b5998;
     cursor: pointer;
 }
 
-#btc-widget-open-twitter {
+.btc-widget-twitter {
     float: left;
     color: #00aced;
     cursor: pointer;
